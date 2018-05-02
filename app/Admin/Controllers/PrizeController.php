@@ -123,7 +123,7 @@ class PrizeController extends Controller
 
             $form->display('id', 'ID');
             $form->text('prize', "奖品名称");
-            $form->image('img', "奖品图片")->rules("required")->uniqueName();
+            $form->image('img', "奖品图片")->rules("required")->uniqueName()->move('images/'.date("Y-m-d"));
             $form->datetimeRange("stime", "etime", "兑换时间");
             $form->number("num", "奖品数量");
             $form->number("cost", "兑换积分");
