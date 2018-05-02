@@ -10,4 +10,6 @@ class Prize extends Model
     use SoftDeletes;
 
     protected $table = 'prize';
+
+    protected $fillable = ["num"];
 }
