@@ -13,5 +13,6 @@ Route::group([
     $router->get('/', 'HomeController@index');
 
     $router->resource('/prize', PrizeController::class);
+    $router->resource('/wxuser', PrizeController::class);
 
 });
