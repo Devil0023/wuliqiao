@@ -56,8 +56,11 @@ class ActivityController extends Controller
      * @param $id
      * @return Content
      */
-    public function edit($id)
+    //public function edit($id)
+    public function edit(Request $request)
     {
+        $id = $request->info;
+
         return Admin::content(function (Content $content) use ($id) {
 
             $content->header($this->header);
@@ -92,7 +95,24 @@ class ActivityController extends Controller
     {
         return Admin::grid(Activity::class, function (Grid $grid) {
 
+            $grid->model()->where("type", $this->type);
+            $grid->model()->orderBy("activitytime", "desc");
+
             $grid->id('ID')->sortable();
+
+            $grid->title("活动");
+
+            $grid->activitytime("活动时间");
+
+            $grid->column("报名起止")->display(function (){
+                return date("Y-m-d H:i:s", $this->stime)."-".date("Y-m-d H:i:s", $this->etime);
+            });
+
+            $grid->checked("审核")->display(function ($checked){
+                return $checked ? '是' : '否';
+            });
+
+            $grid->editor("编辑");
 
             $grid->created_at();
             $grid->updated_at();
@@ -109,6 +129,16 @@ class ActivityController extends Controller
         return Admin::form(Activity::class, function (Form $form) {
 
             $form->display('id', 'ID');
+
+            $form->text("title", "活动");
+            $form->datetime("activitytime", "活动时间");
+
+            $form->datetimeRange("stime", "etime", "报名起止");
+
+            $form->radio("checked", "审核")->options([0 => "否", 1 => "是"])->default(0);
+
+            $form->text("editor", "编辑");
+            $form->textarea("newstext", "活动正文");
 
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');
