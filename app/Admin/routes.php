@@ -16,5 +16,5 @@ Route::group([
     $router->resource('/wxuser', WxuserController::class);
     $router->resource('/article', ArticleController::class);
 
-    $router->resource("/article/{type}", ActivityController::class);
+    $router->resource("/activity/{type}", ActivityController::class);
 });
