@@ -131,6 +131,8 @@ class ActivityController extends Controller
             $form->display('id', 'ID');
 
             $form->text("title", "活动");
+            $form->image('titlepic', "活动图片")->rules("required")->uniqueName()->move('images/'.date("Y-m-d"));
+
             $form->datetime("activitytime", "活动时间");
 
             $form->datetimeRange("stime", "etime", "报名起止");
