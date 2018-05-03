@@ -76,7 +76,7 @@ class ArticleController extends Controller
             $grid->id('ID')->sortable();
 
             $grid->column("标题")->display(function (){
-                return "<a href='".$this->url."'>".($this->top? "[推".$this->top."]": "").$this->title."</a>";
+                return "<a href='".$this->url."' target='_blank'>".($this->top? "[推".$this->top."]": "").$this->title."</a>";
             });
 
             $grid->checked("审核")->display(function ($checked){
