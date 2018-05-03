@@ -24,8 +24,8 @@ class ArticleController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('文章管理');
+            $content->description('查看及修改文章信息');
 
             $content->body($this->grid());
         });
@@ -41,8 +41,8 @@ class ArticleController extends Controller
     {
         return Admin::content(function (Content $content) use ($id) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('文章管理');
+            $content->description('查看及修改文章信息');
 
             $content->body($this->form()->edit($id));
         });
@@ -57,8 +57,8 @@ class ArticleController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('文章管理');
+            $content->description('查看及修改文章信息');
 
             $content->body($this->form());
         });
@@ -75,6 +75,18 @@ class ArticleController extends Controller
 
             $grid->id('ID')->sortable();
 
+            $grid->column("标题")->display(function (){
+                return "<a href='".$this->url."'>".($this->top? "[推".$this->top."]": "").$this->title."</a>";
+            });
+
+            $grid->checked("审核")->display(function ($checked){
+                return $checked? "是": "否";
+            });
+
+            $grid->newstime("新闻时间");
+
+            $grid->model()->orderBy("newstime", "desc");
+
             $grid->created_at();
             $grid->updated_at();
         });
@@ -90,6 +102,11 @@ class ArticleController extends Controller
         return Admin::form(Article::class, function (Form $form) {
 
             $form->display('id', 'ID');
+
+            $form->text("title", "标题");
+            $form->url("url", "链接地址");
+            $form->radio("checked", "审核")->options([0 => "否", 1 => "是"])->default(0);
+            $form->date("newstime", "新闻时间");
 
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');
