@@ -105,7 +105,7 @@ class ActivityController extends Controller
             $grid->activitytime("活动时间");
 
             $grid->column("报名起止")->display(function (){
-                return date("Y-m-d H:i:s", $this->stime)."-".date("Y-m-d H:i:s", $this->etime);
+                return $this->stime."-".$this->etime;
             });
 
             $grid->checked("审核")->display(function ($checked){
