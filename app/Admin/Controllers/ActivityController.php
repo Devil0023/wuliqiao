@@ -140,6 +140,8 @@ class ActivityController extends Controller
             $form->text("editor", "编辑");
             $form->textarea("newstext", "活动正文");
 
+            $form->hidden("type")->value($this->type);
+
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');
         });
