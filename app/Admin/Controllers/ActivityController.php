@@ -24,8 +24,8 @@ class ActivityController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('活动管理');
+            $content->description('查看及修改活动信息');
 
             $content->body($this->grid());
         });
@@ -41,8 +41,8 @@ class ActivityController extends Controller
     {
         return Admin::content(function (Content $content) use ($id) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('活动管理');
+            $content->description('查看及修改活动信息');
 
             $content->body($this->form()->edit($id));
         });
@@ -57,8 +57,8 @@ class ActivityController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('活动管理');
+            $content->description('查看及修改活动信息');
 
             $content->body($this->form());
         });
