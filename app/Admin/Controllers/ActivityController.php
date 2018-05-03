@@ -20,7 +20,7 @@ class ActivityController extends Controller
     public $header = "活动管理";
 
     public function __construct(Request $request){
-        switch($request->type){
+        switch($request->atype){
             case "community":
                 $this->type   = 1;
                 $this->header = "社区活动";
