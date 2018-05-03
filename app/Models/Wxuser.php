@@ -10,4 +10,9 @@ class Wxuser extends Model
     use SoftDeletes;
 
     protected $table = 'wxuser';
+
+    protected $fillable = [
+        "truename", "mobile", "address", "volunteer", "partymember",
+        "points", "volunteer_points", "partymember_points",
+    ];
 }
