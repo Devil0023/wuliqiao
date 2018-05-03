@@ -106,7 +106,7 @@ class ArticleController extends Controller
             $form->text("title", "标题");
             $form->url("url", "链接地址");
             $form->radio("checked", "审核")->options([0 => "否", 1 => "是"])->default(0);
-            $form->date("newstime", "新闻时间");
+            $form->dateTime("newstime", "新闻时间");
             $form->text("intro", "文章简介");
 
             $form->display('created_at', 'Created At');
