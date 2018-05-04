@@ -73,6 +73,7 @@ class ActivityController extends Controller
     public function update(Request $request){
 
         if($request->file("titlepic")){
+            var_dump($request->file("titlepic")); die;
             $request->titlepic = $request->file("titlepic")->store('images/'.date("Y-m-d"));
         }
 
