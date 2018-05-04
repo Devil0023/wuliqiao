@@ -72,6 +72,10 @@ class ActivityController extends Controller
 
     public function update(Request $request){
 
+        if($request->titlepic){
+            var_dump($request->file("titlepic"));  die;
+        }
+
         $result = Activity::find($request->info)->update(array(
             "title"         => $request->title,
             "titlepic"      => $request->titlepic,
@@ -93,7 +97,7 @@ class ActivityController extends Controller
             }
 
             return redirect($url);
-            
+
         }else{
             return array("status" => false, "message" => "Update failed!");
         }
