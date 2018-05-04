@@ -76,6 +76,8 @@ class ActivityController extends Controller
             $request->titlepic = $request->file("titlepic")->store('images/'.date("Y-m-d"));
         }
 
+        echo $request->titlepic; echo 123; die;
+
         $result = Activity::find($request->info)->update(array(
             "title"         => $request->title,
             "titlepic"      => $request->titlepic,
