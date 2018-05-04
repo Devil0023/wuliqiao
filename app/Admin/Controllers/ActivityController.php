@@ -108,6 +108,9 @@ class ActivityController extends Controller
     }
 
     public function destroy(Request $request){
+
+        var_dump($request->info); die;
+
         $activity = Activity::find($request->info);
 
         $result["status"]      = false;
