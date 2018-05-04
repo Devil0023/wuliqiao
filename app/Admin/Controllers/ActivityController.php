@@ -96,7 +96,9 @@ class ActivityController extends Controller
                 case 2: $url = "/admin/activity/publicservice/info"; break;
             }
 
-            return redirect($url);
+            var_dump($request->file("titlepic"));
+
+            //return redirect($url);
 
         }else{
             return array("status" => false, "message" => "Update failed!");
