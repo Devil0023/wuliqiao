@@ -99,7 +99,7 @@ class ActivityController extends Controller
                 case 1: $url = "/admin/activity/community/info"; break;
                 case 2: $url = "/admin/activity/publicservice/info"; break;
             }
-            
+
             return redirect($url);
 
         }else{
