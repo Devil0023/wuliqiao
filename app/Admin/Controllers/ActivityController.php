@@ -109,7 +109,7 @@ class ActivityController extends Controller
 
     public function destroy(Request $request){
 
-        if(Activity::destroy($request->info)){
+        if(Activity::destroy(explode(",", $request->info))){
             $result["status"]  = true;
             $result["message"] = "Delete succeeded !";
         }else{
