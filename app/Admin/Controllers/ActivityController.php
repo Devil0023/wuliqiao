@@ -71,10 +71,24 @@ class ActivityController extends Controller
     }
 
     public function update(Request $request){
-        $type = $this->type;
-        echo $type;
-        $id = $request->info;
-        echo $id; die;
+        $id     = $request->info;
+        $result = Activity::find($id)->update(array(
+            "title"         => $request->title,
+            "titlepic"      => $request->titlepic,
+            "stime"         => $request->stime,
+            "etime"         => $request->etime,
+            "checked"       => $request->checked,
+            "address"       => $request->address,
+            "activitytime" => $request->activitytime,
+            "editor"        => $request->editor,
+            "newstext"      => $request->newstext,
+        ));
+
+        if($result){
+            return redirect("/admin/activity/".$request->type);
+        }else{
+            return array("status" => false, "message" => "Update failed!");
+        }
     }
 
     /**
@@ -139,6 +153,8 @@ class ActivityController extends Controller
 
             $form->text("title", "活动");
             $form->image('titlepic', "活动图片")->rules("required")->uniqueName()->move('images/'.date("Y-m-d"));
+
+            $form->text("address", "地点");
 
             $form->datetime("activitytime", "活动时间");
 
