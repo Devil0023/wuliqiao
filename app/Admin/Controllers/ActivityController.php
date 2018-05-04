@@ -72,13 +72,15 @@ class ActivityController extends Controller
 
     public function update(Request $request){
 
+        $activity = Activity::find($request->info);
+
         if(!is_null($request->file("titlepic"))){
             $request->titlepic = $request->file("titlepic")->store('images/'.date("Y-m-d"));
+        }else{
+            $request->titlepic = $activity->titlepic;
         }
 
-        echo $request->titlepic; echo 123; die;
-
-        $result = Activity::find($request->info)->update(array(
+        $result = $activity->update(array(
             "title"         => $request->title,
             "titlepic"      => $request->titlepic,
             "stime"         => $request->stime,
@@ -97,9 +99,7 @@ class ActivityController extends Controller
                 case 1: $url = "/admin/activity/community/info"; break;
                 case 2: $url = "/admin/activity/publicservice/info"; break;
             }
-
-            //var_dump($request->file("titlepic"));
-
+            
             return redirect($url);
 
         }else{
