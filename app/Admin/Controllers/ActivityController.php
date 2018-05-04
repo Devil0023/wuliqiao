@@ -107,6 +107,20 @@ class ActivityController extends Controller
         }
     }
 
+    public function destroy(Request $request){
+        $activity = Activity::find($request->info);
+
+        $result["status"]      = false;
+        $result["message"]     = "Delete failed !";
+
+        if($activity->delete()){
+            $result["status"]  = true;
+            $result["message"] = "Delete succeeded !";
+        }
+
+        return $result;
+    }
+
     /**
      * Create interface.
      *
