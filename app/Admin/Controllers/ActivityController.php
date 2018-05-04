@@ -71,8 +71,8 @@ class ActivityController extends Controller
     }
 
     public function update(Request $request){
-        $id     = $request->info;
-        $result = Activity::find($id)->update(array(
+
+        $result = Activity::find($request->info)->update(array(
             "title"         => $request->title,
             "titlepic"      => $request->titlepic,
             "stime"         => $request->stime,
