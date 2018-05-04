@@ -72,13 +72,13 @@ class ActivityController extends Controller
 
     public function update(Request $request){
 
-//        if($request->titlepic){
-//            var_dump();  die;
-//        }
+        if($request->file("titlepic")){
+            $request->titlepic = $request->file("titlepic")->store('images/'.date("Y-m-d"));
+        }
 
         $result = Activity::find($request->info)->update(array(
             "title"         => $request->title,
-            "titlepic"      => $request->file("titlepic")->store('images/'.date("Y-m-d")),
+            "titlepic"      => $request->titlepic,
             "stime"         => $request->stime,
             "etime"         => $request->etime,
             "checked"       => $request->checked,
