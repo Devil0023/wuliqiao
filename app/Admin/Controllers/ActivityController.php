@@ -72,7 +72,7 @@ class ActivityController extends Controller
 
     public function update(Request $request){
 
-        if($request->file("titlepic")){
+        if(!is_null($request->file("titlepic"))){
             $request->titlepic = $request->file("titlepic")->store('images/'.date("Y-m-d"));
         }
 
@@ -96,9 +96,9 @@ class ActivityController extends Controller
                 case 2: $url = "/admin/activity/publicservice/info"; break;
             }
 
-            var_dump($request->file("titlepic"));
+            //var_dump($request->file("titlepic"));
 
-            //return redirect($url);
+            return redirect($url);
 
         }else{
             return array("status" => false, "message" => "Update failed!");
