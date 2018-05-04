@@ -113,8 +113,8 @@ class ActivityController extends Controller
             $result["status"]  = true;
             $result["message"] = "Delete succeeded !";
         }else{
-            $result["status"]      = false;
-            $result["message"]     = "Delete failed !";
+            $result["status"]  = false;
+            $result["message"] = "Delete failed !";
         }
 
         return $result;
