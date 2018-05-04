@@ -70,6 +70,13 @@ class ActivityController extends Controller
         });
     }
 
+    public function update(Request $request){
+        $type = $this->type;
+        echo $type;
+        $id = $request->info;
+        echo $id; die;
+    }
+
     /**
      * Create interface.
      *
