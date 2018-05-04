@@ -85,7 +85,15 @@ class ActivityController extends Controller
         ));
 
         if($result){
-            return redirect("/admin/activity/".$request->type);
+
+            $url = "/admin/activity/community/info";
+            switch($request->type){
+                case 1: $url = "/admin/activity/community/info"; break;
+                case 2: $url = "/admin/activity/publicservice/info"; break;
+            }
+
+            return redirect($url);
+            
         }else{
             return array("status" => false, "message" => "Update failed!");
         }
