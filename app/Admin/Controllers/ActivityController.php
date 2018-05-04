@@ -109,16 +109,12 @@ class ActivityController extends Controller
 
     public function destroy(Request $request){
 
-        var_dump($request->info); die;
-
-        $activity = Activity::find($request->info);
-
-        $result["status"]      = false;
-        $result["message"]     = "Delete failed !";
-
-        if($activity->delete()){
+        if(Activity::destory($request->info)){
             $result["status"]  = true;
             $result["message"] = "Delete succeeded !";
+        }else{
+            $result["status"]      = false;
+            $result["message"]     = "Delete failed !";
         }
 
         return $result;
