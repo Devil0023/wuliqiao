@@ -27,7 +27,7 @@ class FakeWechatOauth
             'provider' => 'WeChat',
         ]);
 
-        session(['wechat.oauth_user.default' => $user]);
+        session(['wechat.oauth_user' => $user]);
 
         return $next($request);
     }

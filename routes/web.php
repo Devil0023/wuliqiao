@@ -15,9 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(["prefix" => "wechat", 'middleware' => ['web', 'wuliqiao.cheatoauth', 'wechat.oauth']], function () {
-    Route::get('/', function () {
-        $user = session('wechat.oauth_user.default'); // 拿到授权用户资料
-        dd($user);
-    });
+Route::group([
+    "prefix" => "wechat",
+    'middleware' => ['web', 'wuliqiao.cheatoauth', 'wechat.oauth', "wuliqiao.register"],
+
+    ], function () {
+        Route::get('/', function () {
+            $user = session('wechat.oauth_user'); // 拿到授权用户资料
+            dd($user);
+        });
 });
