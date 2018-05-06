@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Models\Wxuser;
 
 class WuliqiaoRegister
 {
@@ -15,11 +16,15 @@ class WuliqiaoRegister
      */
     public function handle($request, Closure $next)
     {
+        //$userinfo = session('wechat.oauth_user'); // 拿到授权用户资料
+        $userinfo = session('wechat.oauth_user.default'); // 测试
 
-        $user = session('wechat.oauth_user.default'); // 拿到授权用户资料
-        dd($user);
+        print_r($wxuser["id"]);
+
+        $wxuser = Wxuser::where("openid", "=", $userinfo["id"]);
 
 
+        die;
 
         return $next($request);
     }
