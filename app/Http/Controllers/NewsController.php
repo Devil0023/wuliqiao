@@ -12,7 +12,7 @@ class NewsController extends Controller
 
         //要加缓存
         $list = Article::where("checked", 1)->where("deleted_at", null)
-            ->orderBy("newstime", "desc")->paginate(1)->toJson();
+            ->orderBy("newstime", "desc")->paginate(1)->toJson(); //
 
         echo $list; die;
     }
