@@ -32,7 +32,13 @@ Route::group([
         Route::post('/usercenter/smscheck', 'WuliqiaoController@smscheck');
         Route::post('/usercenter/updateinfo', 'WuliqiaoController@updateinfo');
 
+        //新闻
+        Route::get('/news', "NewsController@index");
+        Route::get('/news/index', "NewsController@index");
 
 
+        //活动
+        Route::get('/activity', "ActivityController@index");
+        Route::get('/activity/index', "ActivityController@index");
     }
 );
