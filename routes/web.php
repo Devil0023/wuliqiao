@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::group([
     "prefix" => "wechat",
-    'middleware' => ['web', 'wuliqiao.cheatoauth', 'wechat.oauth', "wuliqiao.register"],
+    'middleware' => ['web', 'wuliqiao.cheatoauth', 'wechat.oauth'],
 
     ], function () {
         Route::get('/', function () {
