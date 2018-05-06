@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return "";
 });
 
 Route::group([
@@ -23,7 +23,16 @@ Route::group([
         //主页用户中心
         Route::get('/', 'WuliqiaoController@index');
         Route::get('/index', 'WuliqiaoController@index');
+        Route::get('/usercenter', 'WuliqiaoController@index');
+        Route::get('/usercenter/index', 'WuliqiaoController@index');
 
-        
+        //修改信息&注册
+        Route::get('/usercenter/setting', 'WuliqiaoController@setting');
+        Route::get('/usercenter/register', 'WuliqiaoController@register');
+        Route::post('/usercenter/smscheck', 'WuliqiaoController@smscheck');
+        Route::post('/usercenter/updateinfo', 'WuliqiaoController@updateinfo');
+
+
+
     }
 );

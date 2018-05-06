@@ -42,9 +42,7 @@ class WuliqiaoRegister
             $newuser->headimgurl = $userinfo["avatar"];
             $newuser->save();
 
-
         }
-
 
         return $next($request);
     }
