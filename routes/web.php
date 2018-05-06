@@ -17,10 +17,11 @@ Route::get('/', function () {
 
 Route::group([
     "prefix" => "wechat",
-    'middleware' => ['web', 'wuliqiao.cheatoauth', 'wechat.oauth'],
+    'middleware' => ['web', 'wuliqiao.cheatoauth', 'wechat.oauth', 'wuliqiao.register'],
 
     ], function () {
         Route::get('/', function () {
             echo 123;
         });
-});
+    }
+);
