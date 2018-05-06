@@ -20,8 +20,10 @@ Route::group([
     'middleware' => ['web', 'wuliqiao.cheatoauth', 'wechat.oauth', 'wuliqiao.register'],
 
     ], function () {
-        Route::get('/', function () {
-            echo 123;
-        });
+        //主页用户中心
+        Route::get('/', 'WuliqiaoController@index');
+        Route::get('/index', 'WuliqiaoController@index');
+
+        
     }
 );
