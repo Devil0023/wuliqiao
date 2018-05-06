@@ -16,7 +16,7 @@ class WuliqiaoRegister
     public function handle($request, Closure $next)
     {
 
-        $user = session('wechat.oauth_user'); // 拿到授权用户资料
+        $user = session('wechat.oauth_user.kanada'); // 拿到授权用户资料
         dd($user);
 
 
