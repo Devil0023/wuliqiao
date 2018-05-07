@@ -22,16 +22,20 @@ class NewsController extends Controller
             $list = Article::where("checked", 1)->where("deleted_at", null)
                 ->orderBy("newstime", "desc")->paginate(1)->toJson();
             @Redis::setex($mkey, 300, $list);
-            echo 1;
         }
 
-        echo 2;
+        //获取任务信息
+        $oauth        = session('wechat.oauth_user.default');
+        $mission_key  = "Wuliqiao-Mission-".$oauth["id"];
+        $mission_info = @Redis::get($mission_key);
 
-
+        $mission["daily"]     = 5;
+        $mission["complete"] = count(array_filter(explode(",", $mission_info)));
 
         //首页用view 翻页用json
         if($page === 1){
-            return view("wechat.news", compact("list"));
+            $list = json_decode($list, true);
+            return view("wechat.news", compact("list", "mission"));
         }else{
             return $list;
         }
