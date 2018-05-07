@@ -184,7 +184,7 @@ class WuliqiaoController extends Controller
 
         if(empty($json)){
             $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
-            $list   = Pointslog::where("uid", $wxuser->id)->orderBy("create_time", "desc")->take(10)->get()->toArray();
+            $list   = Pointslog::where("uid", $wxuser->id)->orderBy("created_at", "desc")->take(10)->get()->toArray();
 
             $uinfo   = array(
                 "nickname"    => $oauth["name"],
@@ -209,7 +209,7 @@ class WuliqiaoController extends Controller
 
         if(empty($json)){
             $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
-            $list   = Ppointslog::where("uid", $wxuser->id)->orderBy("create_time", "desc")->take(10)->get()->toArray();
+            $list   = Ppointslog::where("uid", $wxuser->id)->orderBy("created_at", "desc")->take(10)->get()->toArray();
 
             $uinfo   = array(
                 "nickname"    => $oauth["name"],
@@ -234,7 +234,7 @@ class WuliqiaoController extends Controller
 
         if(empty($json)){
             $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
-            $list   = Vpointslog::where("uid", $wxuser->id)->orderBy("create_time", "desc")->take(10)->get()->toArray();
+            $list   = Vpointslog::where("uid", $wxuser->id)->orderBy("created_at", "desc")->take(10)->get()->toArray();
 
             $uinfo   = array(
                 "nickname"    => $oauth["name"],
