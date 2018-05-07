@@ -30,8 +30,6 @@ class Pointsrule extends Model
             default: return false;
         }
 
-        echo $fields; die;
-
         DB::beginTransaction();
         try{
 
