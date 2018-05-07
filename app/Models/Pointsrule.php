@@ -4,9 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Pointslog;
-use App\Models\Ppointslog;
-use App\Models\Vpointslog;
 
 use DB;
 

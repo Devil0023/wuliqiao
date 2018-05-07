@@ -9,6 +9,10 @@ use App\Models\Pointsrule;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Http\Request;
 
+use App\Models\Pointslog;
+use App\Models\Ppointslog;
+use App\Models\Vpointslog;
+
 class NewsController extends Controller
 {
 
