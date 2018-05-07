@@ -35,12 +35,6 @@ class Pointsrule extends Model
 
             if($user->$fields + $rule->delta <= 0){
 
-                $user->update(array(
-                    $fields => 0
-                ));
-
-                echo $user->$fields."|".(0 - $user->$fields);
-
                 $model::create(array(
                     "uid"     => $user->id,
                     "openid" => $user->openid,
@@ -48,9 +42,11 @@ class Pointsrule extends Model
                     "desc"   => $rule->rule,
                 ));
 
-            }else{
+                $user->update(array(
+                    $fields => 0
+                ));
 
-                $user->increment($fields, $rule->delta);
+            }else{
 
                 $model::create(array(
                     "uid"     => $user->id,
@@ -58,6 +54,8 @@ class Pointsrule extends Model
                     "delta" => $rule->delta,
                     "desc"   => $rule->rule,
                 ));
+
+                $user->increment($fields, $rule->delta);
 
             }
 
