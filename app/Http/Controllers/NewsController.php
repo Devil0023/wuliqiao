@@ -91,8 +91,17 @@ class NewsController extends Controller
         $wxuser  = Wxuser::where("openid", "=", $oauth["id"])->first();
 
 
-        $points = Pointsrule::addPointsByRule(3, $wxuser->id, $oauth["id"]);
-        echo $points;
+        $result  = Pointsrule::addPointsByRule(3, $wxuser->id);
+        if($result){
+
+            $wxuser  = Wxuser::where("openid", "=", $oauth["id"])->first()->toJson();
+            echo $wxuser;
+
+        }else{
+            echo 2222;
+        }
+
+
     }
 
 
