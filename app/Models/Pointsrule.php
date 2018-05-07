@@ -33,13 +33,13 @@ class Pointsrule extends Model
         DB::beginTransaction();
         try{
 
-            if($user->$fields + $rule->delta < 0){
+            if($user->$fields + $rule->delta <= 0){
 
                 $user->update(array(
                     $fields => 0
                 ));
 
-                
+                echo (0 - $user->$fields);
 
                 $model::create(array(
                     "uid"     => $user->id,
