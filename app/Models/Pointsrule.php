@@ -13,7 +13,7 @@ class Pointsrule extends Model
     protected $table = 'pointsrule';
 
 
-    public function addPointsByRule($ruleid, $uid, $openid){
+    static public function addPointsByRule($ruleid, $uid, $openid){
 
         $rule = self::find($ruleid);
 
