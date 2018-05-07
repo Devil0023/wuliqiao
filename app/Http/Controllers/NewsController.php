@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 
+use App\Models\Wxuser;
+use App\Models\Pointsrule;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Http\Request;
 
@@ -78,7 +80,7 @@ class NewsController extends Controller
 
         @Redis::setex($mission_key, 300, implode(",", array_filter($complete)));
 
-        $points = Pointslog::addPointsByRule(3, $wxuser->id, $oauth["id"]);
+        $points = Pointsrule::addPointsByRule(3, $wxuser->id, $oauth["id"]);
 
     }
 
@@ -88,8 +90,8 @@ class NewsController extends Controller
         $oauth   = session('wechat.oauth_user.default');
         $wxuser  = Wxuser::where("openid", "=", $oauth["id"])->first();
 
-        
-        $points = Pointslog::addPointsByRule(3, $wxuser->id, $oauth["id"]);
+
+        $points = Pointsrule::addPointsByRule(3, $wxuser->id, $oauth["id"]);
         echo $points;
     }
 
