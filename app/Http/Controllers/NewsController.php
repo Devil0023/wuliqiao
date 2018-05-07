@@ -106,35 +106,4 @@ class NewsController extends Controller
 
     }
 
-
-    public function test(){
-
-//        $oauth   = session('wechat.oauth_user.default');
-//        $wxuser  = Wxuser::where("openid", "=", $oauth["id"])->first();
-//
-//        Pointsrule::addPointsByRule(3, $wxuser->id);
-//        Pointsrule::addPointsByRule(3, $wxuser->id);
-//        Pointsrule::addPointsByRule(3, $wxuser->id);
-//
-//        $wxuser  = Wxuser::where("openid", "=", $oauth["id"])->first();
-//        echo "Now:".$wxuser->points."<br/>";
-//
-//        Pointsrule::addPointsByRule(4, $wxuser->id);
-//
-//        $wxuser  = Wxuser::where("openid", "=", $oauth["id"])->first();
-//        echo "Now:".$wxuser->points."<br/>";
-//
-//        Pointsrule::addPointsByRule(4, $wxuser->id);
-//
-//        $wxuser  = Wxuser::where("openid", "=", $oauth["id"])->first();
-//        echo "Now:".$wxuser->points."<br/>";
-//
-//
-//        echo 1;
-//
-//
-
-    }
-
-
 }
