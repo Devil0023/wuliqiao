@@ -39,6 +39,8 @@ class Pointsrule extends Model
                     $fields => 0
                 ));
 
+                
+
                 $model::create(array(
                     "uid"     => $user->id,
                     "openid" => $user->openid,
