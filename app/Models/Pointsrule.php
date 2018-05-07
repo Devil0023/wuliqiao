@@ -42,7 +42,7 @@ class Pointsrule extends Model
                 $model::create(array(
                     "uid"     => $user->id,
                     "openid" => $user->openid,
-                    "points" => (0 - $user->$fields),
+                    "delta" => (0 - $user->$fields),
                     "desc"   => $rule->rule,
                 ));
 
@@ -53,7 +53,7 @@ class Pointsrule extends Model
                 $model::create(array(
                     "uid"     => $user->id,
                     "openid" => $user->openid,
-                    "points" => $rule->delta,
+                    "delta" => $rule->delta,
                     "desc"   => $rule->rule,
                 ));
 
