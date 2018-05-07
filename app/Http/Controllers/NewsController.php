@@ -78,7 +78,20 @@ class NewsController extends Controller
 
         @Redis::setex($mission_key, 300, implode(",", array_filter($complete)));
 
-
+        $points = Pointslog::addPointsByRule(3, $wxuser->id, $oauth["id"]);
 
     }
+
+
+    public function test(){
+
+        $oauth   = session('wechat.oauth_user.default');
+        $wxuser  = Wxuser::where("openid", "=", $oauth["id"])->first();
+
+        
+        $points = Pointslog::addPointsByRule(3, $wxuser->id, $oauth["id"]);
+        echo $points;
+    }
+
+
 }

@@ -38,6 +38,8 @@ Route::group([
         Route::post('/news/read', "NewsController@read");
 
 
+        Route::get('/news/test', "NewsController@test");
+
         //活动
         Route::get('/activity', "ActivityController@index");
         Route::get('/activity/index', "ActivityController@index");
