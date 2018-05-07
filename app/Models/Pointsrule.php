@@ -24,9 +24,9 @@ class Pointsrule extends Model
         }
 
         switch($rule->type){
-            case 0: $model = Pointslog ; $fields = "points";  break;
-            case 1: $model = Ppointslog; $fields = "partymember_points"; break;
-            case 2: $model = Vpointslog; $fields = "volunteer_points"; break;
+            case 0: $model = Pointslog::class ; $fields = "points";  break;
+            case 1: $model = Ppointslog::class; $fields = "partymember_points"; break;
+            case 2: $model = Vpointslog::class; $fields = "volunteer_points"; break;
             default: return false;
         }
 
