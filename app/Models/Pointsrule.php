@@ -39,7 +39,7 @@ class Pointsrule extends Model
                     $fields => 0
                 ));
 
-                echo (0 - $user->$fields);
+                echo $user->$fields."|".(0 - $user->$fields);
 
                 $model::create(array(
                     "uid"     => $user->id,
