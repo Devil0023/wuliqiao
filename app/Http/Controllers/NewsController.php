@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
