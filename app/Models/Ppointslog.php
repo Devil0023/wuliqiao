@@ -10,4 +10,8 @@ class Ppointslog extends Model
     use SoftDeletes;
 
     protected $table = 'ppointslog';
+
+    protected $fillable = [
+        "uid", "openid", "delta", "desc"
+    ];
 }

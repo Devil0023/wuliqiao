@@ -10,4 +10,8 @@ class Vpointslog extends Model
     use SoftDeletes;
 
     protected $table = 'vpointslog';
+
+    protected $fillable = [
+        "uid", "openid", "delta", "desc"
+    ];
 }
