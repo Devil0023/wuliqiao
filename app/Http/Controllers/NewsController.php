@@ -94,16 +94,15 @@ class NewsController extends Controller
         $oauth   = session('wechat.oauth_user.default');
         $wxuser  = Wxuser::where("openid", "=", $oauth["id"])->first();
 
+        Pointsrule::addPointsByRule(3, $wxuser->id);
+        Pointsrule::addPointsByRule(3, $wxuser->id);
+        Pointsrule::addPointsByRule(3, $wxuser->id);
+        Pointsrule::addPointsByRule(4, $wxuser->id);
+        Pointsrule::addPointsByRule(4, $wxuser->id);
 
-        $result  = Pointsrule::addPointsByRule(4, $wxuser->id);
-        if($result){
 
-            $wxuser  = Wxuser::where("openid", "=", $oauth["id"])->first()->toJson();
-            echo $wxuser;
+        echo 1;
 
-        }else{
-            echo 2222;
-        }
 
 
     }

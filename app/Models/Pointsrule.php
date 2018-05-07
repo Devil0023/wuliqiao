@@ -49,7 +49,7 @@ class Pointsrule extends Model
             }else{
 
                 $user->increment($fields, $rule->delta);
-                
+
                 $model::create(array(
                     "uid"     => $user->id,
                     "openid" => $user->openid,
