@@ -24,8 +24,8 @@ class PointsruleController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('积分规则');
+            $content->description('积分规则查看及管理');
 
             $content->body($this->grid());
         });
@@ -41,8 +41,8 @@ class PointsruleController extends Controller
     {
         return Admin::content(function (Content $content) use ($id) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('积分规则');
+            $content->description('积分规则查看及管理');
 
             $content->body($this->form()->edit($id));
         });
@@ -57,8 +57,8 @@ class PointsruleController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('积分规则');
+            $content->description('积分规则查看及管理');
 
             $content->body($this->form());
         });
@@ -74,6 +74,29 @@ class PointsruleController extends Controller
         return Admin::grid(Pointsrule::class, function (Grid $grid) {
 
             $grid->id('ID')->sortable();
+            $grid->rule("规则");
+            $grid->type("类型")->display(function ($type){
+                $string = "";
+                switch($type){
+                    case "0": $string = "普通积分"; break;
+                    case "1": $string = "党员积分"; break;
+                    case "2": $string = "志愿者积分"; break;
+                }
+
+                return $string;
+            });
+
+            $grid->delta("积分变量");
+
+            $grid->tools(function ($tools) {
+                $tools->batch(function ($batch) {
+                    $batch->disableDelete();
+                });
+            });
+
+            $grid->actions(function ($actions) {
+                $actions->disableDelete();
+            });
 
             $grid->created_at();
             $grid->updated_at();
@@ -90,6 +113,14 @@ class PointsruleController extends Controller
         return Admin::form(Pointsrule::class, function (Form $form) {
 
             $form->display('id', 'ID');
+
+            $form->text("rule", "规则");
+            $form->radio("type", "类型")->options(array(
+                0 => "普通积分", 1 => "党员积分", 2 => "志愿者积分",
+            ))->default(0);
+
+            $form->number("delta", "积分变量");
+            $form->text("intro", "介绍");
 
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');

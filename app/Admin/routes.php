@@ -17,4 +17,6 @@ Route::group([
     $router->resource('/article', ArticleController::class);
 
     $router->resource("/activity/{type}/info", ActivityController::class);
+
+    $router->resource("/pointsrule", PointsruleController::class);
 });
