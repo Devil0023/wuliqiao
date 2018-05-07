@@ -115,7 +115,7 @@ class WuliqiaoController extends Controller
         }else{
             return array(
                 "error_code"    => "400002",
-                "error_message" => "修改失败",
+                "error_message" => "修改个人信息失败",
             );
          }
 

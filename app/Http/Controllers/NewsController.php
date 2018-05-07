@@ -30,7 +30,7 @@ class NewsController extends Controller
         $mission_info = @Redis::get($mission_key);
 
         $mission["daily"]     = 5;
-        $mission["complete"] = count(array_filter(explode(",", $mission_info)));
+        $mission["complete"] = count(explode(",", $mission_info));
 
         //首页用view 翻页用json
         if($page === 1){
@@ -39,6 +39,46 @@ class NewsController extends Controller
         }else{
             return $list;
         }
+
+    }
+
+    public function read(Request $request){
+
+        $oauth   = session('wechat.oauth_user.default');
+        $wxuser  = Wxuser::where("openid", "=", $oauth["id"])->first();
+
+        $newsid  = intval($request->newsid);
+
+        if($newsid === 0){
+            return array(
+                "error_code"    => "400001",
+                "error_message" => "参数遗漏",
+            );
+        }
+
+        $mission_key  = "Wuliqiao-Mission-".$oauth["id"];
+        $mission_info = @Redis::get($mission_key);
+        $complete     = explode(",", $mission_info);
+
+        if(count($complete) >= 5){
+            return array(
+                "error_code"    => "400003",
+                "error_message" => "今日阅读任务已完成",
+            );
+        }
+
+        if(in_array($newsid, $complete)){
+            return array(
+                "error_code"    => "400004",
+                "error_message" => "该文章已阅读",
+            );
+        }
+
+        array_push($complete, $newsid);
+
+        @Redis::setex($mission_key, 300, implode(",", array_filter($complete)));
+
+
 
     }
 }

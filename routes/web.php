@@ -35,6 +35,7 @@ Route::group([
         //新闻
         Route::get('/news', "NewsController@index");
         Route::get('/news/index', "NewsController@index");
+        Route::post('/news/read', "NewsController@read");
 
 
         //活动
