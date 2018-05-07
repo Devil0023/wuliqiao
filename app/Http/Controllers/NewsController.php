@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Wxuser;
 use App\Models\Pointsrule;
-//use App\Models\Pointslog;
-//use App\Models\Ppointslog;
-//use App\Models\Vpointslog;
 
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Http\Request;

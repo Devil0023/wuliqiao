@@ -5,41 +5,71 @@ namespace App\Http\Controllers;
 use App\Models\Wxuser;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Redis;
+
 class WuliqiaoController extends Controller
 {
+
+    private $dailymission = 5;
 
     public function index(){
         $oauth  = session('wechat.oauth_user.default');
 
-        $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
+        $mission_key  = "Wuliqiao-Mission-".$oauth["id"];
+        $mission_info = @Redis::get($mission_key);
 
-        $info   = array(
-            "nickname" => $oauth["name"],
-            "openid"   => $oauth["openid"],
-            "headimgurl" => $oauth["avatar"],
+        $mission["daily"]     = $this->dailymission;
+        $mission["complete"] = count(explode(",", $mission_info));
 
-            "points"              => intval($wxuser["points"]),
-            "volunteer"           => intval($wxuser["volunteer"]),
-            "volunteer_points"   => intval($wxuser["volunteer_points"]),
-            "partymember"         => intval($wxuser["partymember"]),
-            "partymember_points" => intval($wxuser["partymember_points"]),
-        );
+        $mkey   = "Wuliqiao-Usercenter-Userinfo-".$oauth["id"];
+        $json   = @Redis::get($mkey);
 
-        return view("wechat.index", compact("info"));
+        if(empty($json)){
+            $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
+
+            $uinfo   = array(
+                "nickname" => $oauth["name"],
+                "openid"   => $oauth["openid"],
+                "headimgurl" => $oauth["avatar"],
+
+                "points"              => intval($wxuser["points"]),
+                "volunteer"           => intval($wxuser["volunteer"]),
+                "volunteer_points"   => intval($wxuser["volunteer_points"]),
+                "partymember"         => intval($wxuser["partymember"]),
+                "partymember_points" => intval($wxuser["partymember_points"]),
+            );
+
+            $json = json_encode($uinfo);
+            @Redis::setex($mkey, 2, $json);
+        }
+
+        $info = json_decode($json, true);
+
+        return view("wechat.index", compact("info". "mission"));
     }
 
     public function setting(){
         $oauth  = session('wechat.oauth_user.default');
 
-        $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
+        $mkey   = "Wuliqiao-Usercenter-Userinfo-Setting-".$oauth["id"];
+        $json   = @Redis::get($mkey);
+        if(empty($json)) {
+            $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
 
-        $info   = array(
-            "truename"    => $wxuser["truename"],
-            "mobile"      => $wxuser["mobile"],
-            "address"     => $wxuser["address"],
-            "volunteer"   => intval($wxuser["volunteer"]),
-            "partymember" => intval($wxuser["partymember"]),
-        );
+            $uinfo = array(
+                "truename" => $wxuser["truename"],
+                "mobile" => $wxuser["mobile"],
+                "address" => $wxuser["address"],
+                "volunteer" => intval($wxuser["volunteer"]),
+                "partymember" => intval($wxuser["partymember"]),
+            );
+
+            $json = json_encode($uinfo);
+            @Redis::setex($mkey, 2, $json);
+
+        }
+
+        $info = json_decode($json, true);
 
         return view("wechat.setting", compact("info"));
     }
@@ -60,11 +90,18 @@ class WuliqiaoController extends Controller
             );
         }
 
-        //记得这里检查下redis
+        $mkey = "Wuliqiao-SMSCheck-".$mobile;
+
+        if(@Redis::get($mkey)){
+            return array(
+                "error_code"    => "400006",
+                "error_message" => "短信请求太频繁",
+            );
+        }
 
         $code = $this->createCode(6);
-
-        //这里要进下redis
+        @Redis::setex($mkey, 60, $code);
+        session(['smscheck' => $code]);
 
         return array(
             "error_code" => "0",
@@ -91,11 +128,22 @@ class WuliqiaoController extends Controller
             );
         }
 
-        //这里判断下code
+        if(session("smscheck") != $code){
+            return array(
+                "error_code"    => "400007",
+                "error_message" => "验证码错误",
+            );
+        }
 
 
         $oauth  = session('wechat.oauth_user.default');
         $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
+
+        $first  = false;
+
+        if(empty($wxuser->truename) || is_null($wxuser->truename)){
+            $first = true;
+        }
 
         $result = $wxuser->update(array(
             "truename" => $truename,
@@ -106,6 +154,10 @@ class WuliqiaoController extends Controller
         ));
 
         if($result){
+
+            if($first){
+                Pointsrule::addPointsByRule(1, $wxuser->id);
+            }
 
             return array(
                 "error_code"    => "0",
