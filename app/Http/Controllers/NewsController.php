@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 class NewsController extends Controller
 {
 
+    private $dailymission = 5;
+
     public function index(Request $request){
 
         $page = intval($request->page) == 0? 1: intval($request->page);
@@ -35,7 +37,7 @@ class NewsController extends Controller
         $mission_key  = "Wuliqiao-Mission-".$oauth["id"];
         $mission_info = @Redis::get($mission_key);
 
-        $mission["daily"]     = 5;
+        $mission["daily"]     = $this->dailymission;
         $mission["complete"] = count(explode(",", $mission_info));
 
         //首页用view 翻页用json
@@ -66,7 +68,7 @@ class NewsController extends Controller
         $mission_info = @Redis::get($mission_key);
         $complete     = explode(",", $mission_info);
 
-        if(count($complete) >= 5){
+        if(count($complete) >= $this->dailymission){
             return array(
                 "error_code"    => "400003",
                 "error_message" => "今日阅读任务已完成",
@@ -80,41 +82,57 @@ class NewsController extends Controller
             );
         }
 
-        array_push($complete, $newsid);
+        if(Pointsrule::addPointsByRule(3, $wxuser->id)){
 
-        @Redis::setex($mission_key, 300, implode(",", array_filter($complete)));
+            $expire   = strtotime(date("Y-m-d")." 23:59:59") - time();
 
-        $points = Pointsrule::addPointsByRule(3, $wxuser->id, $oauth["id"]);
+            $complete = array_filter(array_push($complete, $newsid));
+
+            @Redis::setex($mission_key, $expire, implode(",", $complete));
+
+            return array(
+                "error_code"    => "0",
+                "error_message" => "success",
+            );
+
+        }else{
+
+            return array(
+                "error_code"    => "400005",
+                "error_message" => "每日任务保存失败",
+            );
+
+        }
 
     }
 
 
     public function test(){
 
-        $oauth   = session('wechat.oauth_user.default');
-        $wxuser  = Wxuser::where("openid", "=", $oauth["id"])->first();
-
-        Pointsrule::addPointsByRule(3, $wxuser->id);
-        Pointsrule::addPointsByRule(3, $wxuser->id);
-        Pointsrule::addPointsByRule(3, $wxuser->id);
-
-        $wxuser  = Wxuser::where("openid", "=", $oauth["id"])->first();
-        echo "Now:".$wxuser->points."<br/>";
-
-        Pointsrule::addPointsByRule(4, $wxuser->id);
-
-        $wxuser  = Wxuser::where("openid", "=", $oauth["id"])->first();
-        echo "Now:".$wxuser->points."<br/>";
-
-        Pointsrule::addPointsByRule(4, $wxuser->id);
-
-        $wxuser  = Wxuser::where("openid", "=", $oauth["id"])->first();
-        echo "Now:".$wxuser->points."<br/>";
-
-
-        echo 1;
-
-
+//        $oauth   = session('wechat.oauth_user.default');
+//        $wxuser  = Wxuser::where("openid", "=", $oauth["id"])->first();
+//
+//        Pointsrule::addPointsByRule(3, $wxuser->id);
+//        Pointsrule::addPointsByRule(3, $wxuser->id);
+//        Pointsrule::addPointsByRule(3, $wxuser->id);
+//
+//        $wxuser  = Wxuser::where("openid", "=", $oauth["id"])->first();
+//        echo "Now:".$wxuser->points."<br/>";
+//
+//        Pointsrule::addPointsByRule(4, $wxuser->id);
+//
+//        $wxuser  = Wxuser::where("openid", "=", $oauth["id"])->first();
+//        echo "Now:".$wxuser->points."<br/>";
+//
+//        Pointsrule::addPointsByRule(4, $wxuser->id);
+//
+//        $wxuser  = Wxuser::where("openid", "=", $oauth["id"])->first();
+//        echo "Now:".$wxuser->points."<br/>";
+//
+//
+//        echo 1;
+//
+//
 
     }
 
