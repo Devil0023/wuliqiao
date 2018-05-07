@@ -199,7 +199,7 @@ class WuliqiaoController extends Controller
             @Redis::setex($mkey, 10, json_encode($uinfo));
         }
 
-        return view("wechat.pointslog", compact($uinfo));
+        return view("wechat.pointslog", compact("uinfo"));
     }
 
     public function ppointslog(){
@@ -224,7 +224,7 @@ class WuliqiaoController extends Controller
             @Redis::setex($mkey, 10, json_encode($uinfo));
         }
 
-        return view("wechat.ppointslog", compact($uinfo));
+        return view("wechat.ppointslog", compact("uinfo"));
     }
 
     public function vpointslog(){
@@ -249,7 +249,7 @@ class WuliqiaoController extends Controller
             @Redis::setex($mkey, 10, json_encode($uinfo));
         }
 
-        return view("wechat.ppointslog", compact($uinfo));
+        return view("wechat.ppointslog", compact("uinfo"));
     }
 
     private function createCode($length = 6){
