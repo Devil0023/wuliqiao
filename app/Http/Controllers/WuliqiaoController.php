@@ -252,6 +252,40 @@ class WuliqiaoController extends Controller
         return view("wechat.ppointslog", compact("uinfo"));
     }
 
+    public function sign(){
+        $oauth  = session('wechat.oauth_user.default');
+
+        $mkey   = "Wuliqiao-Sign-".$oauth["id"];
+        $sign   = @Redis::get($mkey);
+        if($sign){
+            return array(
+                "error_code"    => "400008",
+                "error_message" => "今日已签到",
+            );
+        }
+
+        $expire   = strtotime(date("Y-m-d")." 23:59:59") - time();
+        @Redis::set($mkey, $expire, 1);
+
+        $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
+
+        if(Pointsrule::addPointsByRule(2, $wxuser->id)){
+
+            return array(
+                "error_code"    => "0",
+                "error_message" => "success",
+                "points"         => Wxuser::find($wxuser->id)->points,
+            );
+
+        }else{
+            return array(
+                "error_code"    => "400009",
+                "error_message" => "签到失败",
+            );
+        }
+
+    }
+
     private function createCode($length = 6){
 
         $code = "";

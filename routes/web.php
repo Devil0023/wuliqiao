@@ -25,6 +25,7 @@ Route::group([
         Route::get('/index', 'WuliqiaoController@index');
         Route::get('/usercenter', 'WuliqiaoController@index');
         Route::get('/usercenter/index', 'WuliqiaoController@index');
+        Route::post('/usercenter/sign', "WuliqiaoController@sign");
 
         //修改信息&注册
         Route::get('/usercenter/setting', 'WuliqiaoController@setting');
@@ -32,6 +33,7 @@ Route::group([
         Route::post('/usercenter/smscheck', 'WuliqiaoController@smscheck');
         Route::post('/usercenter/updateinfo', 'WuliqiaoController@updateinfo');
 
+        //积分列表
         Route::get("/usercenter/pointslog",  "WuliqiaoController@pointslog");
         Route::get("/usercenter/ppointslog", "WuliqiaoController@ppointslog");
         Route::get("/usercenter/vpointslog", "WuliqiaoController@vpointslog");
