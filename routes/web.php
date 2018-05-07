@@ -32,6 +32,10 @@ Route::group([
         Route::post('/usercenter/smscheck', 'WuliqiaoController@smscheck');
         Route::post('/usercenter/updateinfo', 'WuliqiaoController@updateinfo');
 
+        Route::get("/usercenter/pointslog",  "WuliqiaoController@pointslog");
+        Route::get("/usercenter/ppointslog", "WuliqiaoController@ppointslog");
+        Route::get("/usercenter/vpointslog", "WuliqiaoController@vpointslog");
+
         //新闻
         Route::get('/news', "NewsController@index");
         Route::get('/news/index', "NewsController@index");

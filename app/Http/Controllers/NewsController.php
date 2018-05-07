@@ -24,8 +24,7 @@ class NewsController extends Controller
         $list = @Redis::get($mkey);
 
         if(empty($list)){
-            $list = Article::where("checked", 1)->where("deleted_at", null)
-                ->orderBy("newstime", "desc")->paginate(1)->toJson();
+            $list = Article::where("checked", 1)->orderBy("newstime", "desc")->paginate(1)->toJson();
             @Redis::setex($mkey, 300, $list);
         }
 

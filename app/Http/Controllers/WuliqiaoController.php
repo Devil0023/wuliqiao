@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pointslog;
+use App\Models\Ppointslog;
+use App\Models\Vpointslog;
 use App\Models\Wxuser;
 use Illuminate\Http\Request;
 
@@ -172,6 +175,81 @@ class WuliqiaoController extends Controller
          }
 
 
+    }
+
+    public function pointslog(){
+        $oauth  = session('wechat.oauth_user.default');
+        $mkey   = "Wuliqiao-Pointslog-".$oauth["id"];
+        $json   = @Redis::get($mkey);
+
+        if(empty($json)){
+            $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
+            $list   = Pointslog::where("uid", $wxuser->id)->orderBy("create_time", "desc")->take(10)->get()->toArray();
+
+            $uinfo   = array(
+                "nickname"    => $oauth["name"],
+                "openid"      => $oauth["openid"],
+                "headimgurl" => $oauth["avatar"],
+
+                "points"      => intval($wxuser["points"]),
+                "list"        => $list,
+
+            );
+
+            @Redis::setex($mkey, 10, json_encode($uinfo));
+        }
+
+        return view("wechat.pointslog", compact($uinfo));
+    }
+
+    public function ppointslog(){
+        $oauth  = session('wechat.oauth_user.default');
+        $mkey   = "Wuliqiao-PPointslog-".$oauth["id"];
+        $json   = @Redis::get($mkey);
+
+        if(empty($json)){
+            $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
+            $list   = Ppointslog::where("uid", $wxuser->id)->orderBy("create_time", "desc")->take(10)->get()->toArray();
+
+            $uinfo   = array(
+                "nickname"    => $oauth["name"],
+                "openid"      => $oauth["openid"],
+                "headimgurl" => $oauth["avatar"],
+
+                "partymember_points"  => intval($wxuser["partymember_points"]),
+                "list"        => $list,
+
+            );
+
+            @Redis::setex($mkey, 10, json_encode($uinfo));
+        }
+
+        return view("wechat.ppointslog", compact($uinfo));
+    }
+
+    public function vpointslog(){
+        $oauth  = session('wechat.oauth_user.default');
+        $mkey   = "Wuliqiao-VPointslog-".$oauth["id"];
+        $json   = @Redis::get($mkey);
+
+        if(empty($json)){
+            $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
+            $list   = Vpointslog::where("uid", $wxuser->id)->orderBy("create_time", "desc")->take(10)->get()->toArray();
+
+            $uinfo   = array(
+                "nickname"    => $oauth["name"],
+                "openid"      => $oauth["openid"],
+                "headimgurl" => $oauth["avatar"],
+
+                "volunteer_points"  => intval($wxuser["volunteer_points"]),
+                "list"        => $list,
+
+            );
+
+            @Redis::setex($mkey, 10, json_encode($uinfo));
+        }
+
+        return view("wechat.ppointslog", compact($uinfo));
     }
 
     private function createCode($length = 6){
