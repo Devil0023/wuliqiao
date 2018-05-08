@@ -18,7 +18,7 @@ class ActivityController extends Controller
 
     }
 
-    public function index(){
+    public function index(Request $request){
         echo $this->type;
 
     }
