@@ -48,5 +48,7 @@ Route::group([
         Route::get('/activity', "ActivityController@index");
         Route::get('/activity/{type}', "ActivityController@index");
 
+        Route::get('/activity/detail/{id}', "ActivityController@detail");
+
     }
 );
