@@ -10,10 +10,17 @@ use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\ModelForm;
+use http\Env\Request;
 
 class PpointslogController extends Controller
 {
     use ModelForm;
+
+    private $uid = 0;
+
+    public function __construct(Request $request){
+        $this->uid = $request->uid;
+    }
 
     /**
      * Index interface.
@@ -24,8 +31,8 @@ class PpointslogController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('党员积分日志');
+            $content->description('查看党员积分详情');
 
             $content->body($this->grid());
         });
@@ -41,8 +48,8 @@ class PpointslogController extends Controller
     {
         return Admin::content(function (Content $content) use ($id) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('党员积分日志');
+            $content->description('查看党员积分详情');
 
             $content->body($this->form()->edit($id));
         });
@@ -57,8 +64,8 @@ class PpointslogController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('党员积分日志');
+            $content->description('查看党员积分详情');
 
             $content->body($this->form());
         });
@@ -73,10 +80,27 @@ class PpointslogController extends Controller
     {
         return Admin::grid(Ppointslog::class, function (Grid $grid) {
 
+            $grid->model()->where("uid", $this->uid);
+            $grid->model()->orderBy("id", "desc");
+
             $grid->id('ID')->sortable();
+            $grid->desc("说明");
+            $grid->delta("积分变动");
 
             $grid->created_at();
             $grid->updated_at();
+
+            $grid->actions(function ($actions) {
+                $actions->disableDelete();
+                $actions->disableEdit();
+            });
+
+            $grid->tools(function ($tools) {
+                $tools->batch(function ($batch) {
+                    $batch->disableDelete();
+                });
+            });
+
         });
     }
 
