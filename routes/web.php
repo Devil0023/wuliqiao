@@ -46,6 +46,7 @@ Route::group([
 
         //活动
         Route::get('/activity', "ActivityController@index");
-        Route::get('/activity/index', "ActivityController@index");
+        Route::get('/activity/{$type}', "ActivityController@index");
+
     }
 );
