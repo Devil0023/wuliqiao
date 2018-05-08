@@ -100,9 +100,9 @@ class WxuserController extends Controller
             $grid->actions(function ($actions){
                 $actions->disableDelete();
 
-                $actions->append('<div title = "积分日志"><a href="'.url("admin/points/".$actions->getKey()."/pointslog").'"><i class="fa fa-eye"></i></a></div>');
-                $actions->append('<div title = "志愿者积分日志"><a href="'.url("admin/points/".$actions->getKey()."/pointslog").'"><i class="fa fa-eye"></i></a></div>');
-                $actions->append('<div title = "党员积分日志"><a href="'.url("admin/points/".$actions->getKey()."/pointslog").'"><i class="fa fa-eye"></i></a></div>');
+                $actions->append('<a title="积分日志" href="'.url("admin/points/".$actions->getKey()."/pointslog").'"><i class="fa fa-eye"></i></a>');
+                $actions->append('<a title="志愿者积分日志" href="'.url("admin/points/".$actions->getKey()."/pointslog").'"><i class="fa fa-eye"></i></a>');
+                $actions->append('<a title="党员积分日志" href="'.url("admin/points/".$actions->getKey()."/pointslog").'"><i class="fa fa-eye"></i></a>');
             });
 
             $grid->filter(function ($filter){
