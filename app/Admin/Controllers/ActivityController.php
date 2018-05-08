@@ -174,6 +174,13 @@ class ActivityController extends Controller
 
             $grid->editor("编辑");
 
+
+            $grid->actions(function ($actions){
+
+                $actions->append('<a title="查看参与详情" href="'.url("admin/activity/".$actions->getKey()."/participate").'"><i class="fa fa-eye"></i></a>&nbsp;');
+
+            });
+
             $grid->created_at();
             $grid->updated_at();
         });

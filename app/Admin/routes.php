@@ -17,7 +17,7 @@ Route::group([
     $router->resource('/article', ArticleController::class);
 
     $router->resource("/activity/{type}/info", ActivityController::class);
-
+    $router->resource("/activity/{aid}/participate", ParticipateController::class);
 
 
     $router->resource("/pointsrule", PointsruleController::class);
@@ -25,4 +25,7 @@ Route::group([
     $router->resource("/points/{uid}/pointslog", PointslogController::class);
     $router->resource("/points/{uid}/vpointslog", VpointslogController::class);
     $router->resource("/points/{uid}/ppointslog", PpointslogController::class);
+
+
+
 });
