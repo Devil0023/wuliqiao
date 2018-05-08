@@ -22,6 +22,8 @@ class ActivityController extends Controller
 
     public function index(Request $request){
 
+        $type = $this->type;
+
         $page = intval($request->page) === 0? 1: intval($request->page);
         $mkey = "Wuliqiao-Activity-".$this->type."-".$page;
 
@@ -38,7 +40,7 @@ class ActivityController extends Controller
         foreach($list["data"] as $key => $val){
             $list["data"][$key]["participate"] = 0;
         }
-
+        
         if($page === 1){
             return view("wechat.activitylist", compact("list", "type"));
         }else{
