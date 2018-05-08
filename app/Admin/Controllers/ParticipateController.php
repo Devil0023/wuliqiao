@@ -78,9 +78,8 @@ class ParticipateController extends Controller
     protected function grid()
     {
         return Admin::grid(Participate::class, function (Grid $grid) {
-            echo $this->aid;
-            
-            $this->model()->where("aid", $this->aid);
+
+            $grid->model()->where("aid", $this->aid);
             $grid->model()->orderBy("id", "desc");
 
             $grid->id('ID')->sortable();
