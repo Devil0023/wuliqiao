@@ -13,6 +13,6 @@ class Activity extends Model
 
     protected $fillable = [
         "title", "titlepic", "stime", "etime", "checked", "type",
-        "address", "activitytime", "editor", "newstext",
+        "address", "activitytime", "editor", "newstext", "limitation", "limitation_left",
     ];
 }
