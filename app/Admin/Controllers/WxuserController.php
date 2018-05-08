@@ -2,6 +2,9 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\Pointslog;
+use App\Models\Ppointslog;
+use App\Models\Vpointslog;
 use App\Models\Wxuser;
 
 use Encore\Admin\Form;
@@ -10,6 +13,7 @@ use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\ModelForm;
+use DB;
 
 class WxuserController extends Controller
 {
@@ -158,5 +162,82 @@ class WxuserController extends Controller
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');
         });
+    }
+
+    public function update(Request $request){ //update重写
+        $id   = $request->id;
+        $user = Wxuser::find($id);
+
+        $old["points"]               = $user->points;
+        $old["volunteer_points"]   = $user->volunteer_points;
+        $old["partymember_points"] = $user->partymember_points;
+
+
+        DB::beginTransaction();
+        try{
+
+            $request->points               = $request <= 0? 0: $request->points;
+            $request->volunteer_points    = $request <= 0? 0: $request->volunteer_points;
+            $request->partymember_points = $request <= 0? 0: $request->partymember_points;
+
+
+            $user->update(array(
+
+                "truename"     => $request->truename,
+                "mobile"       => $request->mobile,
+                "address"      => $request->address,
+                "volunteer"   => $request->volunteer,
+                "partymember" => $request->partymember,
+
+                "points"               => $request->points,
+                "volunteer_points"   => $request->volunteer_points,
+                "partymember_points" => $request->partymember_points,
+
+            ));
+
+            if($old["points"] != $request->points){
+
+                Pointslog::create(array(
+                    "uid"     => $user->id,
+                    "openid" => $user->openid,
+                    "delta"  => $request->points - $old["points"],
+                    "desc"   => "后台调整",
+
+                ));
+            }
+
+            if($old["partymember_points"] != $request->partymember_points){
+
+                Ppointslog::create(array(
+                    "uid"     => $user->id,
+                    "openid" => $user->openid,
+                    "delta"  => $request->partymember_points - $old["partymember_points"],
+                    "desc"   => "后台调整",
+
+                ));
+            }
+
+            if($old["volunteer_points"] != $request->volunteer_points){
+
+                Vpointslog::create(array(
+                    "uid"     => $user->id,
+                    "openid" => $user->openid,
+                    "delta"  => $request->volunteer_points - $old["volunteer_points"],
+                    "desc"   => "后台调整",
+
+                ));
+            }
+
+
+
+            DB::commit();
+            return redirect(url("admin/wxuser"));
+
+        }catch(Exception $e){
+
+            DB::rollBack();
+            return array("status" => false, "message" => "Update failed!");
+
+        }
     }
 }

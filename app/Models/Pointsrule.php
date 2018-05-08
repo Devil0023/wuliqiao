@@ -13,6 +13,10 @@ class Pointsrule extends Model
 
     protected $table = 'pointsrule';
 
+//    static public function addPointsByInput($uid, $delta, $model, $desc){
+//        $user = Wxuser::find($uid);
+//
+//    }
 
     static public function addPointsByRule($ruleid, $uid){
 
