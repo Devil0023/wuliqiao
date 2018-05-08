@@ -146,11 +146,19 @@ class ActivityController extends Controller
         return Admin::grid(Activity::class, function (Grid $grid) {
 
             $grid->model()->where("type", $this->type);
-            $grid->model()->orderBy("activitytime", "desc");
+            $grid->model()->orderBy("id", "desc");
 
             $grid->id('ID')->sortable();
 
             $grid->title("活动");
+
+            $grid->limitation("人数限制")->display(function ($limitation){
+                return ($limitation === 0)? "无限制": $limitation;
+            });
+
+            $grid->limitation_left("人数剩余")->display(function (){
+                return ($this->limitation === 0)? "无限制": $this->limitation_left;
+            });
 
             $grid->activitytime("活动时间");
 
@@ -188,6 +196,9 @@ class ActivityController extends Controller
             $form->datetime("activitytime", "活动时间");
 
             $form->datetimeRange("stime", "etime", "报名起止");
+
+            $form->number("limitation", "人数限制");
+            $form->number("limitation_left", "人数剩余");
 
             $form->radio("checked", "审核")->options([0 => "否", 1 => "是"])->default(0);
 
