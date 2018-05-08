@@ -27,12 +27,23 @@ class ActivityController extends Controller
 
         $json = @Redis::get($mkey);
 
-        //if(empty($json)){
+        if(empty($json)){
             $json = Activity::where("type", $this->type)->where("checked", 1)->orderBy("id", "desc")->paginate(3)->toJson();;
             @Redis::setex($mkey, 600, $json);
-        //}
+        }
 
-        return $json;
+        $list  = json_decode($json, true);
+
+        //这里用来检查是否已经参加
+        foreach($list["data"] as $key => $val){
+            $list["data"][$key]["participate"] = 0;
+        }
+
+        if($page === 1){
+            return view("wechat.activitylist", compact("list", "type"));
+        }else{
+            return $list;
+        }
 
     }
 }
