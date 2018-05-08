@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
-use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 
@@ -50,7 +49,7 @@ class ActivityController extends Controller
         $json = @Redis::get($mkey);
 
         if(empty($json)){
-            $json = Article::find($id)->toJson();
+            $json = Activity::find($id)->toJson();
             @Redis::setex($mkey, 600, $json);
         }
 
