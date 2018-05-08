@@ -49,6 +49,7 @@ Route::group([
         Route::get('/activity/{type}', "ActivityController@index");
 
         Route::get('/activity/detail/{id}', "ActivityController@detail");
+        Route::post('/activity/participate', "ActivityController@participate");
 
     }
 );

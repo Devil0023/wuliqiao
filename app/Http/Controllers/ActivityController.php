@@ -60,4 +60,8 @@ class ActivityController extends Controller
         return view("wechat.activitydetail", compact("info"));
 
     }
+
+    public function participate(Request $request){
+        
+    }
 }
