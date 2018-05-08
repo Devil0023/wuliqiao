@@ -90,6 +90,8 @@ class PpointslogController extends Controller
             $grid->created_at();
             $grid->updated_at();
 
+            $grid->disableCreateButton();
+
             $grid->actions(function ($actions) {
                 $actions->disableDelete();
                 $actions->disableEdit();
