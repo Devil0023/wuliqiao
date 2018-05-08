@@ -153,11 +153,11 @@ class ActivityController extends Controller
             $grid->title("活动");
 
             $grid->limitation("人数限制")->display(function ($limitation){
-                return ($limitation === 0)? "无限制": $limitation;
+                return (intval($limitation) === 0)? "无限制": $limitation;
             });
 
             $grid->limitation_left("人数剩余")->display(function (){
-                return ($this->limitation === 0)? "无限制": $this->limitation_left;
+                return (intval($this->limitation) === 0)? "无限制": $this->limitation_left;
             });
 
             $grid->activitytime("活动时间");
