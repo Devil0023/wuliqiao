@@ -179,9 +179,9 @@ class WxuserController extends Controller
         DB::beginTransaction();
         try{
 
-            $request->points               = $request <= 0? 0: $request->points;
-            $request->volunteer_points    = $request <= 0? 0: $request->volunteer_points;
-            $request->partymember_points = $request <= 0? 0: $request->partymember_points;
+            $request->points               = $request->points <= 0? 0: $request->points;
+            $request->volunteer_points   = $request->volunteer_points <= 0? 0: $request->volunteer_points;
+            $request->partymember_points = $request->partymember_points <= 0? 0: $request->partymember_points;
 
 
             $user->update(array(
