@@ -90,6 +90,8 @@ class ActivityController extends Controller
             "activitytime" => $request->activitytime,
             "editor"        => $request->editor,
             "newstext"      => $request->newstext,
+            "limitation"   => $request->limitation,
+            "limitation_left" => $request->limitation_left,
         ));
 
         if($result){
