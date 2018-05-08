@@ -99,7 +99,7 @@ class ParticipateController extends Controller
 
 
             $grid->disableCreateButton();
-            
+
             $grid->actions(function ($actions){
                 $actions->disableDelete();
             });
