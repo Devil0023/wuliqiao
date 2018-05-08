@@ -10,4 +10,8 @@ class Participate extends Model
     use SoftDeletes;
 
     protected $table = 'participate';
+
+    public function wxuser(){
+        return $this->belongsTo(Wxuser::class, "uid", "id");
+    }
 }
