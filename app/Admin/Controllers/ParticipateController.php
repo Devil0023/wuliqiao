@@ -3,7 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Participate;
-
+use Illuminate\Http\Request;
 use App\Models\Wxuser;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -124,7 +124,7 @@ class ParticipateController extends Controller
 
             $form->display('id', 'ID');
 
-            
+
 
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');
