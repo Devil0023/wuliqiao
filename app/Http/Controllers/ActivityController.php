@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class ActivityController extends Controller
 {
@@ -19,7 +21,18 @@ class ActivityController extends Controller
     }
 
     public function index(Request $request){
-        echo $this->type;
+
+        $page = intval($request->page) === 0? 1: intval($request->page);
+        $mkey = "Wuliqiao-Activity-".$this->type."-".$page;
+
+        $json = @Redis::get($mkey);
+
+        if(empty($json)){
+            $json = Activity::where("type", $this->type)->where("checked", 1)->orderBy("id", "desc")->paginate(3)->toJson();;
+            @Redis::setex($mkey, 600, $json);
+        }
+
+        return $json;
 
     }
 }
