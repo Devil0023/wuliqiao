@@ -130,6 +130,7 @@ class WxuserController extends Controller
         return Admin::form(Wxuser::class, function (Form $form) {
 
             $form->display('id', 'ID');
+
             $form->display("nickname", "昵称");
 
             $form->display("sex", "性别")->with(function ($sex){
@@ -149,6 +150,7 @@ class WxuserController extends Controller
                 return "<img src=\"$img\" style=\"width: 132px;\">";
             });
 
+            $form->hidden("id");
             $form->text("truename", "真实姓名");
             $form->text("mobile", "手机");
             $form->text("address", "地址");
