@@ -48,7 +48,7 @@ class WuliqiaoController extends Controller
 
         $info = json_decode($json, true);
 
-        return view("wechat.index", compact("info". "mission"));
+        return view("wechat.index", compact("info", "mission"));
     }
 
     public function setting(){
