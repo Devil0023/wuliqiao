@@ -97,6 +97,9 @@ class ParticipateController extends Controller
             $grid->participatetime("报名时间");
             $grid->signtime("签到时间");
 
+
+            $grid->disableCreateButton();
+            
             $grid->actions(function ($actions){
                 $actions->disableDelete();
             });
