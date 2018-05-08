@@ -23,6 +23,6 @@ Route::group([
     $router->resource("/pointsrule", PointsruleController::class);
 
     $router->resource("/points/{uid}/pointslog", PointslogController::class);
-    $router->resource("/points/{uid}/vpointslog", PpointslogController::class);
-    $router->resource("/points/{uid}/ppointslog", VpointslogController::class);
+    $router->resource("/points/{uid}/vpointslog", VpointslogController::class);
+    $router->resource("/points/{uid}/ppointslog", PpointslogController::class);
 });
