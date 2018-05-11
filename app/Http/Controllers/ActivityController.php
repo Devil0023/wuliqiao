@@ -80,11 +80,40 @@ class ActivityController extends Controller
     }
 
     public function participate(Request $request){
-        $id  = $request->id;
+
+        $oauth  = session('wechat.oauth_user.default');
+        $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
+
+        $id     = $request->id;
         //这里要检查是否已经报名
+        if(Participate::chkInfo($id, $wxuser->id, "participate") === 1){
+            return array(
+                "error_code"    => "400010",
+                "error_message" => "已报名",
+            );
+        }
 
+        $result = Participate::create(array(
+            "uid"              => $wxuser->id,
+            "openid"           => $wxuser->openid,
+            "aid"               => $id,
+            "participate"      => 1,
+            "sign"              => 0,
+            "participatetime" => time(),
+            "signtime"         => 1,
+        ));
 
-
+        if($result){
+            return array(
+                "error_code"    => "0",
+                "error_message" => "success",
+            );
+        }else{
+            return array(
+                "error_code"    => "400011",
+                "error_message" => "报名失败",
+            );
+        }
 
     }
 }
