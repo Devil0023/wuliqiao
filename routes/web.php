@@ -52,7 +52,7 @@ Route::group([
         Route::post('/activity/participate', "ActivityController@participate");
 
         //奖品兑换
-        Route::get("/prize", "PrizeCrontroller@index");
+        Route::get("/prize", "PrizeController@index");
 
 
     }
