@@ -11,6 +11,8 @@ use Encore\Admin\Layout\Content;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\ModelForm;
 
+use Illuminate\Http\Request;
+
 class ExchangeController extends Controller
 {
     use ModelForm;
