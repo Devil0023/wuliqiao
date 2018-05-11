@@ -26,6 +26,6 @@ Route::group([
     $router->resource("/points/{uid}/vpointslog", VpointslogController::class);
     $router->resource("/points/{uid}/ppointslog", PpointslogController::class);
 
-
+    $router->resource("/prize/{pid}/exchange", ExchangeController::class);
 
 });

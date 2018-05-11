@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Models\Prize;
+use App\Models\Wxuser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 
@@ -22,8 +24,7 @@ class PrizeController extends Controller
                 $list = $prize->toArray();
             }
 
-
-            @Redis::setex($mkey, 10, json_encode($list));
+            @Redis::setex($mkey, 600, json_encode($list));
         }else{
             $list = json_decode($json, true);
         }
@@ -31,4 +32,15 @@ class PrizeController extends Controller
 
         return view("wechat.prize", compact("list"));
     }
+
+    public function exchange(Request $request){
+
+        $oauth  = session('wechat.oauth_user.default');
+        $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
+
+
+
+
+    }
+
 }

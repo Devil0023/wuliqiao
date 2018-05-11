@@ -106,7 +106,7 @@ class PrizeController extends Controller
 
             $grid->actions(function ($actions){
                 $actions->disableDelete();
-                $actions->append('<a href="'.url("admin/exchange?pid=".$actions->getKey()).'"><i class="fa fa-eye"></i></a>');
+                $actions->append('<a href="'.url("admin/prize/".$actions->getKey()).'/exchange"><i class="fa fa-eye"></i></a>');
             });
 
         });

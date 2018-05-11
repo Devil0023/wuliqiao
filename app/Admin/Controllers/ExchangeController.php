@@ -15,6 +15,12 @@ class ExchangeController extends Controller
 {
     use ModelForm;
 
+    public $pid;
+
+    public function __construct(Request $request){
+        $this->pid = $request->pid;
+    }
+
     /**
      * Index interface.
      *
@@ -24,8 +30,8 @@ class ExchangeController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('奖品兑换');
+            $content->description('查看详情');
 
             $content->body($this->grid());
         });
@@ -41,8 +47,8 @@ class ExchangeController extends Controller
     {
         return Admin::content(function (Content $content) use ($id) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('奖品兑换');
+            $content->description('查看详情');
 
             $content->body($this->form()->edit($id));
         });
@@ -57,8 +63,8 @@ class ExchangeController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('奖品兑换');
+            $content->description('查看详情');
 
             $content->body($this->form());
         });
@@ -73,10 +79,34 @@ class ExchangeController extends Controller
     {
         return Admin::grid(Exchange::class, function (Grid $grid) {
 
+            $grid->model()->where("pid", $this->pid)->orderBy("id", "desc");
+
             $grid->id('ID')->sortable();
+            $grid->column("用户")->display(function (){
+
+                $user = Wxuser::find($this->uid);
+                if(is_null($user)){
+                    return "";
+                }else{
+                    return $user->nickname;
+                }
+
+            });
 
             $grid->created_at();
             $grid->updated_at();
+
+            $grid->disableCreateButton();
+
+            $grid->actions(function ($actions) {
+                $actions->disableDelete();
+            });
+
+            $grid->tools(function ($tools) {
+                $tools->batch(function ($batch) {
+                    $batch->disableDelete();
+                });
+            });
         });
     }
 
