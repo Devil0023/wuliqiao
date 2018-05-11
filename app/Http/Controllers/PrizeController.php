@@ -26,6 +26,6 @@ class PrizeController extends Controller
         }
 
 
-        return view("wechat.prize", compact($list));
+        return view("wechat.prize", compact("list"));
     }
 }
