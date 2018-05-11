@@ -15,7 +15,7 @@ class PrizeController extends Controller
         $json = @Redis::get($mkey);
 
         if(empty($json)){
-            $list = Prize::where("checked", "=", 1)->where("num", ">", 0)->orderBy("newstime", "desc")->get();
+            $list = Prize::where("checked", "=", 1)->where("num", ">", 0)->orderBy("etime", "asc")->get();
 
             echo $list->toJson();
         }
