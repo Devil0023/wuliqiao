@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Activity;
 use App\Models\Participate;
+use App\Models\Wxuser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 
