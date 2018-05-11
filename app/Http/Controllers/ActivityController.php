@@ -61,9 +61,10 @@ class ActivityController extends Controller
             $activity = Activity::find($id);
 
             if(is_null($activity)){
-                return response()->json([
-                    'message' => 'Record not found',
-                ], 404);
+                return array(
+                    "error_code"    => "400012",
+                    "error_message" => "活动不存在",
+                );
             }
 
             $json = $activity->toJson();
@@ -81,10 +82,30 @@ class ActivityController extends Controller
 
     public function participate(Request $request){
 
+        $id     = $request->id;
+        $mkey   = "Wuliqiao-ActivityDetail-".$id;
+        $json   = @Redis::get($mkey);
+
+        if(empty($json)){
+            $activity = Activity::find($id);
+
+            if(is_null($activity)){
+                return array(
+                    "error_code"    => "400012",
+                    "error_message" => "活动不存在",
+                );
+            }
+
+            $json = $activity->toJson();
+
+            @Redis::setex($mkey, 600, $json);
+        }
+
+
         $oauth  = session('wechat.oauth_user.default');
         $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
 
-        $id     = $request->id;
+
         //这里要检查是否已经报名
         if(Participate::chkInfo($id, $wxuser->id, "participate") === 1){
             return array(
