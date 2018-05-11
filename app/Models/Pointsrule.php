@@ -18,7 +18,7 @@ class Pointsrule extends Model
 //
 //    }
 
-    static public function addPointsByRule($ruleid, $uid){
+     public static function addPointsByRule($ruleid, $uid){
 
         $rule = self::find($ruleid);
         $user = Wxuser::find($uid);

@@ -24,6 +24,6 @@ class Participate extends Model
             "uid" => $uid,
         ))->first();
 
-        return intval($info->$field);
+        return is_null($info)? 0: intval($info->$field);
     }
 }
