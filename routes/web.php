@@ -51,5 +51,9 @@ Route::group([
         Route::get('/activity/detail/{id}', "ActivityController@detail");
         Route::post('/activity/participate', "ActivityController@participate");
 
+        //奖品兑换
+        Route::get("/prize", "PrizeCrontroller@index");
+
+
     }
 );
