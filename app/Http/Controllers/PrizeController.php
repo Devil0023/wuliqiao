@@ -13,13 +13,19 @@ class PrizeController extends Controller
 
         $mkey = "Wuliqiao-Prizelist";
         $json = @Redis::get($mkey);
+        $list = array();
+
 
         if(empty($json)){
-            $list = Prize::where("checked", "=", 1)->where("num", ">", 0)->orderBy("etime", "asc")->get();
+            $prize = Prize::where("checked", "=", 1)->where("num", ">", 0)->orderBy("etime", "asc")->get();
+            if(!is_null($prize)){
+                $list = $prize->toArray();
+            }
 
-            echo $list->toJson();
+            @Redis::setex($mkey, 10, json_encode($list));
         }
 
 
+        return view("wechat.prize", compact($list));
     }
 }
