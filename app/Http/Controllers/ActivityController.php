@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use App\Models\Participate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 
@@ -10,6 +11,9 @@ class ActivityController extends Controller
 {
 
     public function index(Request $request){
+
+        $oauth  = session('wechat.oauth_user.default');
+        $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
 
         switch($request->type){
             case "community": $type = 1; break;
@@ -32,7 +36,7 @@ class ActivityController extends Controller
 
         //这里用来检查是否已经参加
         foreach($list["data"] as $key => $val){
-            $list["data"][$key]["participate"] = 0;
+            $list["data"][$key]["participate"] = Participate::chkInfo($val["id"], $wxuser->id, "participate");
         }
 
         if($page === 1){
@@ -44,24 +48,42 @@ class ActivityController extends Controller
     }
 
     public function detail(Request $request){
+
+        $oauth  = session('wechat.oauth_user.default');
+        $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
+
         $id   = $request->id;
         $mkey = "Wuliqiao-ActivityDetail-".$id;
         $json = @Redis::get($mkey);
 
         if(empty($json)){
-            $json = Activity::find($id)->toJson();
+            $activity = Activity::find($id);
+
+            if(is_null($activity)){
+                return response()->toJson([
+                    'message' => 'Record not found',
+                ], 404);
+            }
+
+            $json = $activity->toJson();
+
             @Redis::setex($mkey, 600, $json);
         }
 
         //这里要检查是否已经报名
-
         $info = json_decode($json, true);
+        $info["participate"] = Participate::chkInfo($id, $wxuser->id, "participate");
 
         return view("wechat.activitydetail", compact("info"));
 
     }
 
     public function participate(Request $request){
-        
+        $id  = $request->id;
+        //这里要检查是否已经报名
+
+
+
+
     }
 }
