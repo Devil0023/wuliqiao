@@ -22,7 +22,10 @@ class PrizeController extends Controller
                 $list = $prize->toArray();
             }
 
+
             @Redis::setex($mkey, 10, json_encode($list));
+        }else{
+            $list = json_decode($json, true);
         }
 
 
