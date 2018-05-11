@@ -15,7 +15,7 @@ class Participate extends Model
         return $this->belongsTo(Wxuser::class, "uid", "id");
     }
 
-    public function chkInfo($aid, $uid, $field = "participate"){
+    public static function chkInfo($aid, $uid, $field = "participate"){
 
         $field = in_array($field, array("participate", "sign"))? $field: "participate";
 
