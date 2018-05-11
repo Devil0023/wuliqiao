@@ -61,7 +61,7 @@ class ActivityController extends Controller
             $activity = Activity::find($id);
 
             if(is_null($activity)){
-                return response()->toJson([
+                return response()->json([
                     'message' => 'Record not found',
                 ], 404);
             }
