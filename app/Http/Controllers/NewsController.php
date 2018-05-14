@@ -36,7 +36,7 @@ class NewsController extends Controller
         echo $mission_info."||||||||||||";
 
         $mission["daily"]     = $this->dailymission;
-        $mission["complete"] = count(explode(",", $mission_info));
+        $mission["complete"] = count(array_filter(explode(",", $mission_info)));
 
         //首页用view 翻页用json
         if($page === 1){
