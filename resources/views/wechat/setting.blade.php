@@ -9,11 +9,11 @@
 
 <body>
 <form id="register">
-    truename:<input name="truename" type="text" value="{{$uinfo["truename"]}}"><br/>
-    mobile:<input name="mobile" type="text" value="{{$uinfo["mobile"]}}" id="mobile"><br/>
-    address:<input name="address" type="text" value="{{$uinfo["address"]}}"><br/>
-    volunteer:<input name="volunteer" type="text" value="{{$uinfo["volunteer"]}}"><br/>
-    partymember:<input name="partymember" type="text" value="{{$uinfo["partymember"]}}"><br/>
+    truename:<input name="truename" type="text" value="{{$info["truename"]}}"><br/>
+    mobile:<input name="mobile" type="text" value="{{$info["mobile"]}}" id="mobile"><br/>
+    address:<input name="address" type="text" value="{{$info["address"]}}"><br/>
+    volunteer:<input name="volunteer" type="text" value="{{$info["volunteer"]}}"><br/>
+    partymember:<input name="partymember" type="text" value="{{$info["partymember"]}}"><br/>
     code:<input name="code" type="text" value=""><input name="smschk" value="smschk" id="smschk" type="button"><br/>
     <input name="submit" type="button" value="submit" id="submit"><br/>
 </form>
