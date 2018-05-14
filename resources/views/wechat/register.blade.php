@@ -15,7 +15,7 @@
     volunteer:<input name="volunteer" type="text" value=""><br/>
     partymember:<input name="partymember" type="text" value=""><br/>
     code:<input name="code" type="text" value=""><input name="smschk" value="smschk" id="smschk" type="button"><br/>
-    <input name="submit" type="submit" value="submit" id="submit"><br/>
+    <input name="submit" type="button" value="submit" id="submit"><br/>
 </form>
 
 <script src="http://skin.kankanews.com/v6/js/libs/jquery-1.9.1.min.js"></script>
