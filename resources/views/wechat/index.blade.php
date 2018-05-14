@@ -28,7 +28,7 @@
             cache: true,
             type: "POST",
             url:   "/wechat/usercenter/sign",
-            data:$("#jobN").serialize(),
+            data:  "",
             async: false,
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
