@@ -60,7 +60,7 @@
             cache: true,
             type: "POST",
             url:   "/wechat/usercenter/updateinfo",
-            data:  $("#register").serialise(),
+            data:  $("#register").serialize(),
             async: false,
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
