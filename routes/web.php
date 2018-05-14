@@ -53,6 +53,7 @@ Route::group([
 
         //奖品兑换
         Route::get("/prize", "PrizeController@index");
+        Route::get("/prize/index", "PrizeController@index");
         Route::post("/prize/exchange", "PrizeController@exchange");
 
 
