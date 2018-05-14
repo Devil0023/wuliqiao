@@ -82,9 +82,9 @@ class NewsController extends Controller
 
             $expire   = strtotime(date("Y-m-d")." 23:59:59") - time();
 
-            $complete = array_filter(array_push($complete, $newsid));
+            array_push($complete, $newsid);
 
-            @Redis::setex($mission_key, $expire, implode(",", $complete));
+            @Redis::setex($mission_key, $expire, implode(",", array_filter($complete)));
 
             return array(
                 "error_code"    => "0",
