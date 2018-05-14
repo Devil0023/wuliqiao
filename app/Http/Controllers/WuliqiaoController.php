@@ -6,6 +6,7 @@ use App\Models\Pointslog;
 use App\Models\Ppointslog;
 use App\Models\Vpointslog;
 use App\Models\Wxuser;
+use App\Models\Pointsrule;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Redis;
