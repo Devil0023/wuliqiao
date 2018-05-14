@@ -9,12 +9,12 @@
 
 <body>
 <form action="/wechat/usercenter/register" method="post" id="register">
-    <input name="truename" type="text" value=""><br/>
-    <input name="mobile" type="text" value="" id="mobile"><br/>
-    <input name="address" type="text" value=""><br/>
-    <input name="volunteer" type="text" value=""><br/>
-    <input name="partymember" type="text" value=""><br/>
-    <input name="code" type="text" value=""><input name="smschk" value="smschk" id="smschk" type="button"><br/>
+    truename:<input name="truename" type="text" value=""><br/>
+    mobile:<input name="mobile" type="text" value="" id="mobile"><br/>
+    address:<input name="address" type="text" value=""><br/>
+    volunteer:<input name="volunteer" type="text" value=""><br/>
+    partymember:<input name="partymember" type="text" value=""><br/>
+    code:<input name="code" type="text" value=""><input name="smschk" value="smschk" id="smschk" type="button"><br/>
     <input name="submit" type="submit" value="submit"><br/>
 </form>
 
