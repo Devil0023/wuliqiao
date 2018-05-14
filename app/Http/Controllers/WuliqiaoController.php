@@ -256,7 +256,10 @@ class WuliqiaoController extends Controller
         $oauth  = session('wechat.oauth_user.default');
 
         $mkey   = "Wuliqiao-Sign-".$oauth["id"];
+        echo $mkey."|";
         $sign   = @Redis::get($mkey);
+        echo $sign; die;
+
         if($sign){
             return array(
                 "error_code"    => "400008",
