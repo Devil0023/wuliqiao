@@ -33,6 +33,8 @@ class NewsController extends Controller
         $mission_key  = "Wuliqiao-Mission-".$oauth["id"];
         $mission_info = @Redis::get($mission_key);
 
+        echo $mission_info."||||||||||||";
+
         $mission["daily"]     = $this->dailymission;
         $mission["complete"] = count(explode(",", $mission_info));
 
