@@ -12,7 +12,7 @@
 任务：{{$mission["complete"]}}/{{$mission["daily"]}}
 @foreach($list["data"] as $key => $val)
 
-    <a href="{{$val["url"]}}" id="read{{$val["id"]}}">{{$val["title"]}}</a><br/>
+    <a id="read{{$val["id"]}}">{{$val["title"]}}</a><br/>
 
 @endforeach
 
@@ -23,8 +23,8 @@
         $.ajax({
             cache: true,
             type: "POST",
-            url:   "/wechat/usercenter/sign",
-            data:  "newsid=",
+            url:   "/wechat/news/read",
+            data:  "newsid=3",
             async: false,
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
