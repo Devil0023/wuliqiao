@@ -18,7 +18,7 @@
 
 <script src="http://skin.kankanews.com/v6/js/libs/jquery-1.9.1.min.js"></script>
 <script type="text/javascript">
-    $("#read1").on("click",function(){
+    $("#read3").on("click",function(){
 
         $.ajax({
             cache: true,
