@@ -256,9 +256,7 @@ class WuliqiaoController extends Controller
         $oauth  = session('wechat.oauth_user.default');
 
         $mkey   = "Wuliqiao-Sign-".$oauth["id"];
-        echo $mkey."|";
         $sign   = @Redis::get($mkey);
-        echo $sign; die;
 
         if($sign){
             return array(
@@ -267,12 +265,13 @@ class WuliqiaoController extends Controller
             );
         }
 
-        $expire   = strtotime(date("Y-m-d")." 23:59:59") - time();
-        @Redis::set($mkey, $expire, 1);
+        $expire = strtotime(date("Y-m-d")." 23:59:59") - time();
 
         $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
 
         if(Pointsrule::addPointsByRule(2, $wxuser->id)){
+
+            @Redis::setex($mkey, $expire, 1);
 
             return array(
                 "error_code"    => "0",
