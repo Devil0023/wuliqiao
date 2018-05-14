@@ -9,10 +9,10 @@
 
 <body>
 
-任务：{{$mission["complete"]}}/{{$mission["daily"]}}
+任务：{{$mission["complete"]}}/{{$mission["daily"]}} <br/>
 @foreach($list["data"] as $key => $val)
 
-    <a id="read{{$val["id"]}}">{{$val["title"]}}</a><br/>
+    <div id="read{{$val["id"]}}"><a>{{$val["title"]}}</a></div>
 
 @endforeach
 
