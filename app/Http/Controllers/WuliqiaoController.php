@@ -110,7 +110,7 @@ class WuliqiaoController extends Controller
         return array(
             "error_code" => "0",
             "error_message" => "success",
-            //"code" => $code,
+            "code" => $code,
         );
 
     }
