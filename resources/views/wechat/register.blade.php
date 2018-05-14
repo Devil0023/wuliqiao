@@ -26,7 +26,7 @@
             cache: true,
             type: "POST",
             url:   "/wechat/usercenter/smscheck",
-            data:  $("#register").serialise(),
+            data:  "mobile=" + document.getElementById("mobile").value,
             async: false,
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
