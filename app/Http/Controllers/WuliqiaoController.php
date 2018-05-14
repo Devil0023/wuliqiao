@@ -163,6 +163,8 @@ class WuliqiaoController extends Controller
                 Pointsrule::addPointsByRule(1, $wxuser->id);
             }
 
+            $request->session()->forget("smscheck");
+
             return array(
                 "error_code"    => "0",
                 "error_message" => "success",
