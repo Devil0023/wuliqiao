@@ -123,7 +123,7 @@ class ActivityController extends Controller
             "participate"      => 1,
             "sign"              => 0,
             "participatetime" => date("Y-m-d H:i:s"),
-            "signtime"         => 1,
+            //"signtime"         => 1,
         ));
 
         if($result){
