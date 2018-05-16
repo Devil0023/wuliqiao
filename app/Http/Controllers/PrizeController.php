@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Exchange;
+use App\Models\Pointslog;
 use App\Models\Prize;
 use App\Models\Wxuser;
 use Illuminate\Http\Request;
@@ -112,6 +113,13 @@ class PrizeController extends Controller
 
                 Wxuser::find($wxuser->id)->update(array(
                     "points" => $wxuser->points - $prize->cost
+                ));
+
+                Pointslog::create(array(
+                    "uid"     => $wxuser->id,
+                    "openid" => $wxuser->openid,
+                    "delta"  => 0 - $prize->cost,
+                    "desc"   => "兑换奖品：".$prize->prize,
                 ));
 
                 DB::commit();
