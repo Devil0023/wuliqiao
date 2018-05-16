@@ -55,7 +55,7 @@ class PrizeController extends Controller
             );
         }
 
-        if($prize->num <= 0 || $prize->stime > $now || $prize->etime < $now ){
+        if($prize->num <= 0 || strtotime($prize->stime) > $now || strtotime($prize->etime) < $now ){
             return array(
                 "error_code"    => "400013",
                 "error_message" => "奖品不存在或已结束兑换",
