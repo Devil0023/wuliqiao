@@ -107,6 +107,8 @@ class ActivityController extends Controller
 
         $ainfo  = json_decode($json, true);
 
+        echo strtotime($ainfo["stime"])."||||";
+
         if(strtotime($ainfo["stime"]) < $now){
             return array(
                 "error_code"    => "400017",
