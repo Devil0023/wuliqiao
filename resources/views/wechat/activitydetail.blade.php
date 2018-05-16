@@ -24,7 +24,7 @@
             cache: true,
             type: "POST",
             url:   "/wechat/activity/participate",
-            data:  "id={!! $info[\"id\"] !!}",
+            data:  "id={!! $info["id"] !!}",
             async: false,
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
