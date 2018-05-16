@@ -14,4 +14,8 @@ class Exchange extends Model
     protected $fillable = [
         "uid", "openid", "pid",
     ];
+
+    public function wxuser(){
+        return $this->belongsTo(Wxuser::class, "uid", "id");
+    }
 }
