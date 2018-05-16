@@ -10,4 +10,8 @@ class Exchange extends Model
     use SoftDeletes;
 
     protected $table = 'exchange';
+
+    protected $fillable = [
+        "uid", "openid", "pid",
+    ];
 }
