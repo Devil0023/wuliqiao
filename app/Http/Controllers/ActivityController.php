@@ -122,7 +122,7 @@ class ActivityController extends Controller
             "aid"               => $id,
             "participate"      => 1,
             "sign"              => 0,
-            "participatetime" => time(),
+            "participatetime" => date("Y-m-d H:i:s"),
             "signtime"         => 1,
         ));
 
