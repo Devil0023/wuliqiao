@@ -27,7 +27,7 @@ class PrizeController extends Controller
         if(empty($json)){
 
             $prize = Prize::where("checked", "=", 1)->where("num", ">", 0)
-                ->where("stime" , "<", $now)->where("etime" , ">", $now)
+                ->where("stime" , "<", date("Y-m-d H:i:s", $now))->where("etime" , ">", date("Y-m-d H:i:s", $now))
                 ->orderBy("etime", "asc")->get();
 
             if(!is_null($prize)){
