@@ -226,8 +226,7 @@ class ActivityController extends Controller
     public function qrcode(Request $request){
 
         require_once(app_path()."/Tool/qrcode/phpqrcode.php");
-        $url = url('wechat/activity/sign/'.$request->aid);
-
-        QRcode::png($url, false, "H", 8, 2);
+        $url    = url('wechat/activity/sign/'.$request->aid);
+        new \QRcode::png($url, false, "H", 8, 2);
     }
 }
