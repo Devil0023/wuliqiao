@@ -80,6 +80,8 @@ class PrizeController extends Controller
             "uid" => $wxuser->id,
         ))->count();
 
+        echo $count;
+
         if($count > $this->exchange_limit){
             return array(
                 "error_code"    => "400015",
