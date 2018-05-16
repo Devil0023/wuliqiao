@@ -43,8 +43,11 @@ class ParticipateController extends Controller
      * @param $id
      * @return Content
      */
-    public function edit($id)
+    //public function edit($id)
+    public function edit(Request $request)
     {
+        $id = $request->participate;
+
         return Admin::content(function (Content $content) use ($id) {
 
             $content->header('活动参与');
@@ -94,8 +97,13 @@ class ParticipateController extends Controller
 
             });
 
-            $grid->participatetime("报名时间");
-            $grid->signtime("签到时间");
+            $grid->column("报名时间")->display(function (){
+                return ($this->participate)? $this->participatetime: "";
+            });
+
+            $grid->column("签到时间")->display(function (){
+                return ($this->sign)? $this->signtime: "";
+            });
 
 
             $grid->disableCreateButton();
