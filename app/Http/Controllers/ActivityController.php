@@ -243,7 +243,7 @@ class ActivityController extends Controller
         ));
 
         if($result){
-            redirect("/wechat/activity/detail/".$id);
+            return redirect("/wechat/activity/detail/".$id);
         }else{
             return array(
                 "error_code"    => "400021",
