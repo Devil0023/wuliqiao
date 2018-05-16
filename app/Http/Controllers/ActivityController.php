@@ -201,6 +201,58 @@ class ActivityController extends Controller
 
     }
 
+    public function sign(Request $request){
+        $id     = $request->id;
+        $mkey   = "Wuliqiao-ActivityDetail-".$id;
+        $json   = @Redis::get($mkey);
+
+        if(empty($json)){
+            $activity = Activity::find($id);
+
+            if(is_null($activity)){
+                return array(
+                    "error_code"    => "400012",
+                    "error_message" => "活动不存在",
+                );
+            }
+
+            $json = $activity->toJson();
+
+            @Redis::setex($mkey, 600, $json);
+        }
+
+        $oauth  = session('wechat.oauth_user.default');
+        $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
+
+        if(Participate::chkInfo($id, $wxuser->id, "participate") === 0){
+            return array(
+                "error_code"    => "400020",
+                "error_message" => "该活动未报名",
+            );
+        }
+
+        $result = Participate::where(array(
+            "uid"              => $wxuser->id,
+            "openid"           => $wxuser->openid,
+            "aid"               => $id,
+            "participate"      => 1,
+            "sign"             => 0,
+        ))->updaate(array(
+            "sign"             => 1,
+            "signtime"        => date("Y-m-d H:i:s"),
+        ));
+
+        if($result){
+            redirect("/wechat/activity/detail/".$id);
+        }else{
+            return array(
+                "error_code"    => "400021",
+                "error_message" => "签到失败",
+            );
+        }
+
+    }
+
     private function getTimestring($time){
         $now   = time();
         $delta = $now - $time;

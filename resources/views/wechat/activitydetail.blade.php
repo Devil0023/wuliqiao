@@ -14,7 +14,9 @@
 {{$info["activitytime"]}}<br/>
 {{$info["newstext"]}}<br/>
 
-<input type="button" name="报名" id="participate" value="报名"/>
+<input type="button" name="报名" id="participate" value="报名"/><br/>
+
+<a href="/wechat/activity/sign/{!! $info["id"] !!}">签到</a><br/>
 
 <script src="http://skin.kankanews.com/v6/js/libs/jquery-1.9.1.min.js"></script>
 <script type="text/javascript">

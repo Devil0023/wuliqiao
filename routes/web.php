@@ -50,6 +50,7 @@ Route::group([
 
         Route::get('/activity/detail/{id}', "ActivityController@detail");
         Route::post('/activity/participate', "ActivityController@participate");
+        Route::get("/activity/sign/{id}", "ActivityController@sign");
 
         //奖品兑换
         Route::get("/prize", "PrizeController@index");
