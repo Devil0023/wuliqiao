@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Exchange;
+use App\Models\Wxuser;
 
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
