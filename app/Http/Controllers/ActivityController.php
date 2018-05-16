@@ -106,17 +106,15 @@ class ActivityController extends Controller
         }
 
         $ainfo  = json_decode($json, true);
-
-        echo strtotime($ainfo["stime"])."||||";
-
-        if(strtotime($ainfo["stime"]) < $now){
+        
+        if(strtotime($ainfo["stime"]) > $now){
             return array(
                 "error_code"    => "400017",
                 "error_message" => "活动报名未开始",
             );
         }
 
-        if(strtotime($ainfo["etime"]) >= $now){
+        if(strtotime($ainfo["etime"]) <= $now){
             return array(
                 "error_code"    => "400018",
                 "error_message" => "活动报名已结束",
