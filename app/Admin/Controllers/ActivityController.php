@@ -221,4 +221,10 @@ class ActivityController extends Controller
             $form->display('updated_at', 'Updated At');
         });
     }
+
+
+    public function qrcode(Request $request){
+        $aid = $request->aid;
+        echo $aid;
+    }
 }

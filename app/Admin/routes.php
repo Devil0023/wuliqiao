@@ -10,11 +10,14 @@ Route::group([
     'middleware'    => config('admin.route.middleware'),
 ], function (Router $router) {
 
-    $router->get('/', 'HomeController@index');
+    //$router->get('/', 'HomeController@index');
 
+    $router->get('/', PrizeController::class);
     $router->resource('/prize', PrizeController::class);
     $router->resource('/wxuser', WxuserController::class);
     $router->resource('/article', ArticleController::class);
+
+    $router->get('/activity/qrcode/{aid}', 'ActivityController@qrcode');
 
     $router->resource("/activity/{type}/info", ActivityController::class);
     $router->resource("/activity/{aid}/participate", ParticipateController::class);
