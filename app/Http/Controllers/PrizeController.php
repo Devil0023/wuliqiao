@@ -66,6 +66,13 @@ class PrizeController extends Controller
         $oauth  = session('wechat.oauth_user.default');
         $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
 
+        if($wxuser->points < $prize->cost){
+            return array(
+                "error_code"    => "400022",
+                "error_message" => "积分不够兑换",
+            );
+        }
+
         $mkey   = "Wuliqiao-PrizeExchange-".$wxuser->id."-".$id;
 
         if(@Redis::get($mkey)){
@@ -103,6 +110,9 @@ class PrizeController extends Controller
                     "openid" => $wxuser->openid,
                 ));
 
+                Wxuser::find($wxuser->id)->update(array(
+                    "points" => $wxuser->points - $prize->cost
+                ));
 
                 DB::commit();
 
