@@ -75,6 +75,7 @@ class ActivityController extends Controller
         //这里要检查是否已经报名
         $info = json_decode($json, true);
         $info["participate"] = Participate::chkInfo($id, $wxuser->id, "participate");
+        $info["timeinfo"]    = $this->getTimestring(strtotime($info["created_at"]));
 
         return view("wechat.activitydetail", compact("info"));
 
@@ -136,5 +137,18 @@ class ActivityController extends Controller
             );
         }
 
+    }
+
+    private function getTimestring($time){
+        $now   = time();
+        $delta = $time - $now;
+
+        if($delta <= 3600){
+            return intval( $delta / 60)."分钟前";
+        }elseif($delta <= 7200 && $delta > 3600){
+            return "1小时前";
+        }else{
+            return date("Y-m-d H:i");
+        }
     }
 }
