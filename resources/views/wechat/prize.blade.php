@@ -11,7 +11,7 @@
 
 @foreach($list as $key => $val)
 
-    <div id="exchange{{$val["id"]}}">{{$val["title"]}}</div>
+    <div id="exchange{{$val["id"]}}">{{$val["prize"]}}</div>
 
 @endforeach
 
