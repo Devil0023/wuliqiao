@@ -84,6 +84,8 @@ class ActivityController extends Controller
 
     public function participate(Request $request){
 
+        $now    = time();
+
         $id     = $request->id;
         $mkey   = "Wuliqiao-ActivityDetail-".$id;
         $json   = @Redis::get($mkey);
@@ -103,6 +105,21 @@ class ActivityController extends Controller
             @Redis::setex($mkey, 600, $json);
         }
 
+        $ainfo  = json_decode($json, true);
+
+        if($ainfo["stime"] < $now){
+            return array(
+                "error_code"    => "400017",
+                "error_message" => "活动报名未开始",
+            );
+        }
+
+        if($ainfo["etime"] >= $now){
+            return array(
+                "error_code"    => "400018",
+                "error_message" => "活动报名已结束",
+            );
+        }
 
         $oauth  = session('wechat.oauth_user.default');
         $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
