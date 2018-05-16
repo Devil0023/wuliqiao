@@ -179,6 +179,8 @@ class ActivityController extends Controller
 
                 $actions->append('<a title="查看参与详情" href="'.url("admin/activity/".$actions->getKey()."/participate").'"><i class="fa fa-eye"></i></a>&nbsp;');
 
+                $actions->append('<a title="签到二维码" onclick="window.open(\''.url("admin/activity/qrcode/".$actions->getKey()).'\', \'QRcode\', \'width=600,height=360,scrollbars=yes,resizable=yes\'）"><i class="fa fa-qrcode"></i></a>&nbsp;');
+
             });
 
             $grid->created_at();
