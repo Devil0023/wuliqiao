@@ -136,9 +136,38 @@ class ParticipateController extends Controller
             $form->display('id', 'ID');
 
 
+            $form->display("wxuser.nickname", "昵称");
+            $form->display("wxuser.sex", "性别")->with(function ($sex){
+                switch($sex){
+                    case 1; $value = "男"; break;
+                    case 2: $value = "女"; break;
+                    default: $value = "不明";
+                }
+                return $value;
+            });
+
+            $form->display("wxuser.language", "语言");
+            $form->display("wxuser.province", "省份");
+            $form->display("wxuser.city", "城市");
+            $form->display("wxuser.country", "国家");
+            $form->display("wxuser.headimgurl", "头像")->with(function ($img){
+                return "<img src=\"$img\" style=\"width: 132px;\">";
+            });
+
+            $form->display("wxuser.mobile", "手机");
+            $form->display("wxuser.address", "地址");
+
+
 
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');
+
+            $form->disableSubmit();
+            $form->disableReset();
+
+            $form->tools(function (Form\Tools $tools){
+                $tools->disableListButton();
+            });
         });
     }
 }
