@@ -17,7 +17,7 @@ Route::group([
     $router->resource('/wxuser', WxuserController::class);
     $router->resource('/article', ArticleController::class);
 
-    $router->get('/activity/qrcode/{aid}', 'ActivityController@qrcode');
+    $router->get('/qrcode/activity/{aid}', 'ActivityController@qrcode');
 
     $router->resource("/activity/{type}/info", ActivityController::class);
     $router->resource("/activity/{aid}/participate", ParticipateController::class);
