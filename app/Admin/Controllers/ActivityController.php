@@ -224,6 +224,7 @@ class ActivityController extends Controller
 
 
     public function qrcode(Request $request){
+        echo app_path()."/Tool/qrcode/phpqrcode.php"; die;
         require_once(app_path()."/Tool/qrcode/phpqrcode.php");
         $url = url('wechat/activity/sign/'.$request->aid);
         echo $url."<br/>";
