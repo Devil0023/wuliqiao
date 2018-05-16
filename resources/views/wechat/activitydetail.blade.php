@@ -7,14 +7,50 @@
     <title></title>
 </head>
 <body>
-{{$info["id"]}}
-{{$info["title"]}}
-{{$info["titlepic"]}}
-{{$info["timeinfo"]}} - {{$info["editor"]}}
-{{$info["activitytime"]}}
-{{$info["newstext"]}}
+{{$info["id"]}}<br/>
+{{$info["title"]}}<br/>
+{{$info["titlepic"]}}<br/>
+{{$info["timeinfo"]}} - {{$info["editor"]}}<br/>
+{{$info["activitytime"]}}<br/>
+{{$info["newstext"]}}<br/>
 
+<input type="button" name="报名" id="participate" value="报名"/>
 
+<script src="http://skin.kankanews.com/v6/js/libs/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+    $("#sign").on("click",function(){
 
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url:   "/wechat/activity/participate",
+            data:  "id="{!! $info["id"] !!},
+            async: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+
+            error: function(data) {
+                console.log(data);
+            },
+
+            success: function(data) {
+
+                console.log(data);
+                //var dataObj = JSON.parse(data);
+
+//                if(data.error_code != "0"){
+//                    $(".mask").show();
+//                    $(".mask").find("p").html(data.error_message);
+//                }else{
+//                    $(".first").hide();
+//                    $(".second").show();
+//                };
+
+            }
+        });
+
+    });
+</script>
 </body>
 </html>
