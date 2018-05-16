@@ -237,7 +237,7 @@ class ActivityController extends Controller
             "aid"               => $id,
             "participate"      => 1,
             "sign"             => 0,
-        ))->updaate(array(
+        ))->update(array(
             "sign"             => 1,
             "signtime"        => date("Y-m-d H:i:s"),
         ));
