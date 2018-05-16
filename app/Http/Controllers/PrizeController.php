@@ -119,7 +119,7 @@ class PrizeController extends Controller
 
                 return array(
                     "error_code"    => "400016",
-                    "error_message" => "奖品兑换失败",
+                    "error_message" => "奖品已被兑换完",
                 );
             }
 

@@ -7,6 +7,7 @@ use App\Models\Participate;
 use App\Models\Wxuser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
+use DB;
 
 class ActivityController extends Controller
 {
@@ -106,7 +107,7 @@ class ActivityController extends Controller
         }
 
         $ainfo  = json_decode($json, true);
-        
+
         if(strtotime($ainfo["stime"]) > $now){
             return array(
                 "error_code"    => "400017",
@@ -133,22 +134,65 @@ class ActivityController extends Controller
             );
         }
 
-        $result = Participate::create(array(
-            "uid"              => $wxuser->id,
-            "openid"           => $wxuser->openid,
-            "aid"               => $id,
-            "participate"      => 1,
-            "sign"              => 0,
-            "participatetime" => date("Y-m-d H:i:s"),
-            //"signtime"         => 1,
-        ));
+        DB::beginTransaction();
+        try{
 
-        if($result){
-            return array(
-                "error_code"    => "0",
-                "error_message" => "success",
-            );
-        }else{
+            if($ainfo["limitation"] > 0){
+
+                $result = Activity::find($id)->where("limitation_left", ">", 0)->decrement("limitation_left", 1);
+
+                if($result){
+                    Participate::create(array(
+                        "uid"              => $wxuser->id,
+                        "openid"           => $wxuser->openid,
+                        "aid"               => $id,
+                        "participate"      => 1,
+                        "sign"              => 0,
+                        "participatetime" => date("Y-m-d H:i:s"),
+                    ));
+
+                    DB::commit();
+
+                    return array(
+                        "error_code"    => "0",
+                        "error_message" => "success",
+                    );
+                }else{
+
+                    DB::rollBack();
+
+                    return array(
+                        "error_code"    => "400019",
+                        "error_message" => "活动报名人数已满",
+                    );
+
+                }
+
+            }else{
+
+
+                Participate::create(array(
+                    "uid"              => $wxuser->id,
+                    "openid"           => $wxuser->openid,
+                    "aid"               => $id,
+                    "participate"      => 1,
+                    "sign"              => 0,
+                    "participatetime" => date("Y-m-d H:i:s"),
+                ));
+
+                DB::commit();
+
+                return array(
+                    "error_code"    => "0",
+                    "error_message" => "success",
+                );
+            }
+
+        }catch(Exception $e){
+
+
+            DB::rollBack();
+
             return array(
                 "error_code"    => "400011",
                 "error_message" => "报名失败",
