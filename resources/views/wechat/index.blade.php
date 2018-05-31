@@ -4,26 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title></title>
+    <title>个人中心</title>
+    <link rel="stylesheet" type="text/css" href="//wlq.kankannews.com/wechat/styles/public.css">
 </head>
-
 <body>
-
-{{$info["nickname"]}}
-{{$info["openid"]}}
-{{$info["headimgurl"]}}
-{{$info["points"]}}
-{{$info["volunteer"]}}
-{{$info["volunteer_points"]}}
-{{$info["partymember"]}}
-{{$info["partymember_points"]}}
-
-<input type="button" class="sBtn" value="签到" id="sign" />
-
-<script src="http://skin.kankanews.com/v6/js/libs/jquery-1.9.1.min.js"></script>
+    <div class="loadingMask">
+        <div class="loadWrapper text-center">
+            <p>loading...</p>
+        </div>
+    </div>
+    <div class="main-wrapper user-center">
+        <div class="white-wrapper">
+            <div class="row-flexwrapper user-info"> 
+                <div class="row-flexwrapper">
+                    <div class="protrait">
+                        <img src="{{$info["headimgurl"]}}"/>
+                    </div>
+                    <p>{{$info["nickname"]}}</p>
+                </div>
+                <div class="btn sign-in">签到</div>
+            </div>
+            <ul class="item-list">
+                <li class="row-flexwrapper everyday more" data-url="/wechat/news">
+                    <span>每日任务</span><span>0/5</span>
+                </li>
+                <li class="row-flexwrapper myprofile more" data-url="/wechat/news">
+                    <span>我的资料</span>
+                    <span></span>
+                </li>
+                <li class="row-flexwrapper mypoint more" data-url="/wechat/usercenter/pointslog">
+                    <span>我的积分</span>
+                    <span>{{$info["points"]}}<i>分</i></span>
+                </li>
+                @if ($info["volunteer"])
+                <li class="row-flexwrapper volunteerpoint" data-url="
+                /wechat/usercenter/vpointslog">
+                    <span>志愿者积分</span>
+                    <span>{{$info["volunteer_points"]}}<i>分</i></span>
+                </li>
+                @endif
+                @if ($info["partymember"])
+                <li class="row-flexwrapper partypoint" data-url="/wechat/usercenter/ppointslog">
+                    <span>党性积分</span>
+                    <span>{{$info["partymember_points"]}}<i>分</i></span>
+                </li>
+                @endif
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://skin.kankanews.com/v6/2016zt/hz/js/jquery.js"></script>
+    <script type="text/javascript" src="./scripts/public.js"></script>
 <script type="text/javascript">
-    $("#sign").on("click",function(){
-
+    $(".item-list li").on("click",function(){
+        var url=$(this).data("url");
+        window.location.href=url;
+    })
+    $(".sign-in").on("click",function(){
+        if($(this).hasClass("gray")){
+            alert("已签到");
+            return;
+        }
         $.ajax({
             cache: true,
             type: "POST",
@@ -39,22 +79,14 @@
             },
 
             success: function(data) {
-
-                console.log(data);
-                //var dataObj = JSON.parse(data);
-
-//                if(data.error_code != "0"){
-//                    $(".mask").show();
-//                    $(".mask").find("p").html(data.error_message);
-//                }else{
-//                    $(".first").hide();
-//                    $(".second").show();
-//                };
-
+                if(data.error_code==="0"||data.error_code==="400008"){
+                   $(".sign-in").addClass("gray");
+                }
+                alert(data.error_message)
             }
         });
 
     });
 </script>
-
 </body>
+</html>

@@ -1,0 +1,1 @@
+$(".loadingMask").addClass("hide")

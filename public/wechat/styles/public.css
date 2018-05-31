@@ -11,6 +11,8 @@ img{ width: 100%; }
 .right{ float: right; }
 .text-center{ text-align: center; }
 .loadingMask{ position: fixed; z-index: 1000;top:0px; left:0px; width: 100%; height: 100%; color: #fff; background: #000; }
+.loadingMask.submiting{ background: rgba(0,0,0,0.7); }
+
 .loadWrapper{ position: absolute; top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%); width: 100px; height: 100px;}
 .loadWrapper p{ padding-top: 10px;}
 .flexBox,.row-flexwrapper{display: -webkit-box; display: -webkit-flex;  display: flex; -webkit-box-align: center;-webkit-align-items: center;align-items: center; }
@@ -378,16 +380,22 @@ img{ width: 100%; }
 .daily-progress p.one span:first-child{
 	background:#00cdcc;
 }
+.daily-progress p.two span:first-child,
 .daily-progress p.two span:nth-child(2){
 	background:#00cdcc;
 }
+.daily-progress p.three span:first-child,
+.daily-progress p.three span:nth-child(2),
 .daily-progress p.three span:nth-child(3){
 	background:#00cdcc;
 }
+.daily-progress p.four span:first-child,
+.daily-progress p.four span:nth-child(2),
+.daily-progress p.four span:nth-child(3),
 .daily-progress p.four span:nth-child(4){
 	background:#00cdcc;
 }
-.daily-progress p.five span:last-child{
+.daily-progress p.five span{
 	background:#00cdcc;
 }
 .daily-list{
@@ -416,12 +424,12 @@ img{ width: 100%; }
 	font-size: 1.2em;
 	width: 50%;
 }
-.activity-list header p.active-tag{
+.activity-list header.active-tag-1 p:first-child,.activity-list header.active-tag-2 p:last-child{
 	background:#fd4a42;
 	color: #fff;
 	position: relative;
 }
-.activity-list header p.active-tag:after{
+.activity-list header.active-tag-1 p:first-child:after,.activity-list header.active-tag-2 p:last-child:after{
 	content: "";
 	position: absolute;
 	left: 50%;
@@ -512,6 +520,16 @@ header .baoming{
 	background:url(../images/activity.png) 0 bottom no-repeat;
 	background-size: 100%;
 }
+
+
+.smallBtnWhite{display: inline-block;font-size: .75em;line-height: 2em;height:2em;background: #fff;width:6em; border:1px solid #b7b8ba;border-radius: 1em; position: relative; z-index: 1; margin: 0 1em;}
+.btnBlue,.btnRed,.btnOringe{border:none; margin:0 auto;font-size: 1.125em;height:2.2em;line-height:2.2em; width:7em;border-radius:1.1em; color: #fff;}
+.btnBlue{background:#1f73d2;}
+.btnRed{background:#cf164e;}
+.btnOringe{ background:#dd5525; }
+.smallBtnGray{ font-size: .75em;height:2em;line-height:2em; width:6em;border-radius:1em;background: #ddd;color: #999; }
+.smallBtnRed{ font-size: .75em;height:2em;line-height:2em; width:6em;border-radius:1em;background: #cf164e;color: #fff; }
+
 .gray{    background: #ddd; color: #999;}
 .no-border{border:none;}
 .hide{ display: none; }
