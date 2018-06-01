@@ -65,6 +65,11 @@ class WuliqiaoController extends Controller
             $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
 
             $uinfo = array(
+
+                "nickname" => $oauth["name"],
+                "openid"   => $oauth["openid"],
+                "headimgurl" => $oauth["avatar"],
+
                 "truename" => $wxuser["truename"],
                 "mobile" => $wxuser["mobile"],
                 "address" => $wxuser["address"],
@@ -86,12 +91,17 @@ class WuliqiaoController extends Controller
 
         $oauth  = session('wechat.oauth_user.default');
 
-        $mkey   = "Wuliqiao-Usercenter-Userinfo-Setting-".$oauth["id"];
+        $mkey   = "Wuliqiao-Usercenter-Userinfo-Register-".$oauth["id"];
         $json   = @Redis::get($mkey);
         if(empty($json)) {
             $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
 
             $uinfo = array(
+
+                "nickname" => $oauth["name"],
+                "openid"   => $oauth["openid"],
+                "headimgurl" => $oauth["avatar"],
+
                 "truename" => $wxuser["truename"],
                 "mobile" => $wxuser["mobile"],
                 "address" => $wxuser["address"],
