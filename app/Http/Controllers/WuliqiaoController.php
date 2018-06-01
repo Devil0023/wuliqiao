@@ -51,9 +51,9 @@ class WuliqiaoController extends Controller
             @Redis::setex($mkey, 2, $json);
         }
 
-        $info = json_decode($json, true);
+        $uinfo = json_decode($json, true);
 
-        return view("wechat.index", compact("info", "mission", "sign"));
+        return view("wechat.index", compact("uinfo", "mission", "sign"));
     }
 
     public function setting(){
@@ -82,9 +82,9 @@ class WuliqiaoController extends Controller
 
         }
 
-        $info = json_decode($json, true);
+        $uinfo = json_decode($json, true);
 
-        return view("wechat.setting", compact("info"));
+        return view("wechat.setting", compact("uinfo"));
     }
 
     public function register(){
@@ -114,9 +114,9 @@ class WuliqiaoController extends Controller
 
         }
 
-        $info = json_decode($json, true);
+        $uinfo = json_decode($json, true);
 
-        return view("wechat.register", compact("info"));
+        return view("wechat.register", compact("uinfo"));
     }
 
 

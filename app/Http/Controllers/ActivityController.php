@@ -17,6 +17,18 @@ class ActivityController extends Controller
         $oauth  = session('wechat.oauth_user.default');
         $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
 
+        $uinfo  = array(
+            "nickname" => $oauth["name"],
+            "openid"   => $oauth["openid"],
+            "headimgurl" => $oauth["avatar"],
+
+            "points"              => intval($wxuser["points"]),
+            "volunteer"           => intval($wxuser["volunteer"]),
+            "volunteer_points"   => intval($wxuser["volunteer_points"]),
+            "partymember"         => intval($wxuser["partymember"]),
+            "partymember_points" => intval($wxuser["partymember_points"]),
+        );
+
         switch($request->type){
             case "community": $type = 1; break;
             case "publicservice": $type = 2; break;
@@ -42,7 +54,7 @@ class ActivityController extends Controller
         }
 
         if($page === 1){
-            return view("wechat.activitylist", compact("list", "type"));
+            return view("wechat.activitylist", compact("list", "type", "uinfo"));
         }else{
             return $list;
         }
@@ -53,6 +65,18 @@ class ActivityController extends Controller
 
         $oauth  = session('wechat.oauth_user.default');
         $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
+
+        $uinfo  = array(
+            "nickname" => $oauth["name"],
+            "openid"   => $oauth["openid"],
+            "headimgurl" => $oauth["avatar"],
+
+            "points"              => intval($wxuser["points"]),
+            "volunteer"           => intval($wxuser["volunteer"]),
+            "volunteer_points"   => intval($wxuser["volunteer_points"]),
+            "partymember"         => intval($wxuser["partymember"]),
+            "partymember_points" => intval($wxuser["partymember_points"]),
+        );
 
         $id   = $request->id;
         $mkey = "Wuliqiao-ActivityDetail-".$id;
@@ -79,7 +103,7 @@ class ActivityController extends Controller
         $info["timeinfo"]     = $this->getTimestring(strtotime($info["created_at"]));
         $info["activitytime"] = date("Y-m-d H:i", strtotime($info["activitytime"]));
 
-        return view("wechat.activitydetail", compact("info"));
+        return view("wechat.activitydetail", compact("info", "uinfo"));
 
     }
 

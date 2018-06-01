@@ -39,10 +39,34 @@ class NewsController extends Controller
         $mkey   = "Wuliqiao-Sign-".$oauth["id"];
         $sign   = @Redis::get($mkey);
 
+        $mkey   = "Wuliqiao-Usercenter-Userinfo-".$oauth["id"];
+        $json   = @Redis::get($mkey);
+
+        if(empty($json)){
+            $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
+
+            $uinfo   = array(
+                "nickname" => $oauth["name"],
+                "openid"   => $oauth["openid"],
+                "headimgurl" => $oauth["avatar"],
+
+                "points"              => intval($wxuser["points"]),
+                "volunteer"           => intval($wxuser["volunteer"]),
+                "volunteer_points"   => intval($wxuser["volunteer_points"]),
+                "partymember"         => intval($wxuser["partymember"]),
+                "partymember_points" => intval($wxuser["partymember_points"]),
+            );
+
+            $json = json_encode($uinfo);
+            @Redis::setex($mkey, 2, $json);
+        }
+
+        $uinfo = json_decode($json, true);
+
         //首页用view 翻页用json
         if($page === 1){
             $list = json_decode($list, true);
-            return view("wechat.news", compact("list", "mission", "sign"));
+            return view("wechat.news", compact("list", "mission", "sign", "uinfo"));
         }else{
             return $list;
         }

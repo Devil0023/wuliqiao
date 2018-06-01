@@ -40,8 +40,32 @@ class PrizeController extends Controller
             $list = json_decode($json, true);
         }
 
+        $oauth  = session('wechat.oauth_user.default');
+        $mkey   = "Wuliqiao-Usercenter-Userinfo-".$oauth["id"];
+        $json   = @Redis::get($mkey);
 
-        return view("wechat.prize", compact("list", "now"));
+        if(empty($json)){
+            $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
+
+            $uinfo   = array(
+                "nickname" => $oauth["name"],
+                "openid"   => $oauth["openid"],
+                "headimgurl" => $oauth["avatar"],
+
+                "points"              => intval($wxuser["points"]),
+                "volunteer"           => intval($wxuser["volunteer"]),
+                "volunteer_points"   => intval($wxuser["volunteer_points"]),
+                "partymember"         => intval($wxuser["partymember"]),
+                "partymember_points" => intval($wxuser["partymember_points"]),
+            );
+
+            $json = json_encode($uinfo);
+            @Redis::setex($mkey, 2, $json);
+        }
+
+        $uinfo = json_decode($json, true);
+
+        return view("wechat.prize", compact("list", "now", "uinfo"));
     }
 
     public function exchange(Request $request){
