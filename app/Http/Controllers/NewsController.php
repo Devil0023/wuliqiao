@@ -36,10 +36,13 @@ class NewsController extends Controller
         $mission["daily"]     = $this->dailymission;
         $mission["complete"] = count(array_filter(explode(",", $mission_info)));
 
+        $mkey   = "Wuliqiao-Sign-".$oauth["id"];
+        $sign   = @Redis::get($mkey);
+
         //首页用view 翻页用json
         if($page === 1){
             $list = json_decode($list, true);
-            return view("wechat.news", compact("list", "mission"));
+            return view("wechat.news", compact("list", "mission", "sign"));
         }else{
             return $list;
         }

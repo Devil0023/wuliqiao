@@ -25,6 +25,10 @@ class WuliqiaoController extends Controller
         $mission["daily"]     = $this->dailymission;
         $mission["complete"] = count(explode(",", $mission_info));
 
+        $mkey   = "Wuliqiao-Sign-".$oauth["id"];
+        $sign   = @Redis::get($mkey);
+
+
         $mkey   = "Wuliqiao-Usercenter-Userinfo-".$oauth["id"];
         $json   = @Redis::get($mkey);
 
@@ -49,7 +53,7 @@ class WuliqiaoController extends Controller
 
         $info = json_decode($json, true);
 
-        return view("wechat.index", compact("info", "mission"));
+        return view("wechat.index", compact("info", "mission", "sign"));
     }
 
     public function setting(){
@@ -79,7 +83,30 @@ class WuliqiaoController extends Controller
     }
 
     public function register(){
-        return view("wechat.register");
+
+        $oauth  = session('wechat.oauth_user.default');
+
+        $mkey   = "Wuliqiao-Usercenter-Userinfo-Setting-".$oauth["id"];
+        $json   = @Redis::get($mkey);
+        if(empty($json)) {
+            $wxuser = Wxuser::where("openid", "=", $oauth["id"])->first();
+
+            $uinfo = array(
+                "truename" => $wxuser["truename"],
+                "mobile" => $wxuser["mobile"],
+                "address" => $wxuser["address"],
+                "volunteer" => intval($wxuser["volunteer"]),
+                "partymember" => intval($wxuser["partymember"]),
+            );
+
+            $json = json_encode($uinfo);
+            @Redis::setex($mkey, 2, $json);
+
+        }
+
+        $info = json_decode($json, true);
+
+        return view("wechat.register", compact("info"));
     }
 
 
@@ -252,7 +279,7 @@ class WuliqiaoController extends Controller
             @Redis::setex($mkey, 10, json_encode($uinfo));
         }
 
-        return view("wechat.ppointslog", compact("uinfo"));
+        return view("wechat.vpointslog", compact("uinfo"));
     }
 
     public function sign(){
