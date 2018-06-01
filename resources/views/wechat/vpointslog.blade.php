@@ -8,6 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="//wlq.kankannews.com/wechat/styles/public.css">
 </head>
 <body>
+	{{json_encode($uinfo)}}
 	<div class="loadingMask">
 		<div class="loadWrapper text-center">
 			<p>loading...</p>
@@ -15,12 +16,13 @@
 	</div>
 	<div class="main-wrapper point-detail">
 		<div class="white-wrapper">
+
 			<div class="row-flexwrapper user-info no-border">	
 				<div class="row-flexwrapper">
 					<div class="protrait">
 						<img src="{{$uinfo["headimgurl"]}}"/>
 					</div>
-					<p>{{$uinfo["nickname"]}}<br/><span><em>{{@$uinfo["points"]}}</em>分</span></p>
+					<p>{{$uinfo["nickname"]}}<br/><span><em>{{@$uinfo["volunteer_points"]}}</em>分</span></p>
 				</div>
 			</div>
 			<div class="line-title"><span>积分明细</span></div>

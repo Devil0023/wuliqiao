@@ -19,9 +19,9 @@
         <div class="row-flexwrapper user-info">
             <div class="row-flexwrapper">
                 <div class="protrait">
-                    <img src="{{$info["truename"]}}"/>
+                    <img src="{{@$uinfo["headimgurl"]}}"/>
                 </div>
-                <p>{{$info["truename"]}}</p>
+                <p>{{@$uinfo["nickname"]}}</p>
             </div>
             <div class="row-flexwrapper user-tag">
                 @if($info["volunteer"])
@@ -33,16 +33,16 @@
             </div>
         </div>
         <div class="edit-wrapper">
-            <form>
+            <form id="register">
                 <div class="edit-title">基本信息</div>
                 <div class="input-wrapper row-flexwrapper">
                     <span><i>*</i>姓名</span>
-                    <input type="text" name="username" value="{{$info["truename"]}}">
+                    <input type="text" name="truename" value="{{$info["truename"]}}">
                 </div>
                 
                 <div class="input-wrapper row-flexwrapper">
                     <span><i>*</i>手机</span>
-                    <input type="text" name="phone" value="{{$info["mobile"]}}">
+                    <input type="text" name="mobile" value="{{$info["mobile"]}}">
                 </div>
                 <div class="input-wrapper row-flexwrapper">
                     <span><i>*</i>验证码</span>
@@ -71,12 +71,12 @@
                     </p>
                 </div>
                 @endif
-                <input type="hidden" name="volunteer" value="$info["volunteer"]">
+                <input type="hidden" name="volunteer" value="{{$info["volunteer"]}}">
                 <input type="hidden" name="partymember" value="{{$info["partymember"]}}">
             </form>
         </div>
     </div>
-    <div class="edit-btn-submit btn">修改</div>
+    <div class="edit-btn-submit btn" id="submit">修改</div>
 </div>
 
 <script type="text/javascript" src="https://skin.kankanews.com/v6/2016zt/hz/js/jquery.js"></script>
@@ -94,6 +94,10 @@
        }, 1000)
    }
     $("#smschk").on("click",function(){
+        if( $("input[name='mobile']").val()===""){
+            alert("请输入手机号");
+            return;
+        }
         if($(this).hasClass("gray")){
             return;
         }
@@ -103,7 +107,7 @@
             cache: true,
             type: "POST",
             url:   "/wechat/usercenter/smscheck",
-            data:  "mobile=" + $("input[name='phone']").val(),
+            data:  "mobile=" + $("input[name='mobile']").val(),
             async: false,
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -112,7 +116,11 @@
                 alert(data.error_message);
             },
             success: function(data) {
-                alert("发送成功");
+                if(parseInt(data.error_code)===0){
+                    alert("修改成功");
+                }else{
+                    alert(data.error_message);
+                }
             }
         });
 
@@ -129,10 +137,12 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             error: function(data) {
-                console.log(data);
+                alert(data.error_message);
             },
             success: function(data) {
-                console.log(data);
+                if(parseInt(data.error_code)===0){
+                    alert("修改成功");
+                };
             }
         });
 

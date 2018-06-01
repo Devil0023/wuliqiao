@@ -32,7 +32,7 @@
                     <div class="protrait">
                         <img src="aaa"/>
                     </div>
-                    <p>aaaa<br/><span><em class="mallPoint">11111</em>分</span></p>
+                    <p>{{@$uinfo["nickname"]}}<br/><span><em class="mallPoint">{{@$uinfo["points"]}}</em>分</span></p>
                 </div>
             </div>
             <div class="line-title"><span>积分兑换</span></div>

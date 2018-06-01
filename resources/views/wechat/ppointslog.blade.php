@@ -20,7 +20,7 @@
 					<div class="protrait">
 						<img src="{{$uinfo["headimgurl"]}}"/>
 					</div>
-					<p>{{$uinfo["nickname"]}}<br/><span><em>{{@$uinfo["points"]}}</em>分</span></p>
+					<p>{{$uinfo["nickname"]}}<br/><span><em>{{@$uinfo["partymember_points"]}}</em>分</span></p>
 				</div>
 			</div>
 			<div class="line-title"><span>积分明细</span></div>

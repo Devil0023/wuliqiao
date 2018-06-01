@@ -4,58 +4,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>注册</title>
+    <title>更新</title>
+    <link rel="stylesheet" type="text/css" href="//wlq.kankannews.com/wechat/styles/public.css">
 </head>
 
 <body>
-<form id="register">
-    truename:<input name="truename" type="text" value=""><br/>
-    mobile:<input name="mobile" type="text" value="" id="mobile"><br/>
-    address:<input name="address" type="text" value=""><br/>
-    volunteer:<input name="volunteer" type="text" value=""><br/>
-    partymember:<input name="partymember" type="text" value=""><br/>
-    code:<input name="code" type="text" value=""><input name="smschk" value="smschk" id="smschk" type="button"><br/>
-    <input name="submit" type="button" value="submit" id="submit"><br/>
-</form>
+<div class="loadingMask">
+    <div class="loadWrapper text-center">
+        <p>loading...</p>
+    </div>
+</div>
+<div class="main-wrapper">
+    <div class="white-wrapper">
+        <div class="row-flexwrapper user-info">
+            <div class="row-flexwrapper">
+                <div class="protrait">
+                    <img src="{{@$uinfo["headimgurl"]}}"/>
+                </div>
+                <p>{{@$uinfo["nickname"]}}</p>
+            </div>
+        </div>
+        <div class="edit-wrapper">
+            <form id="register">
+                <div class="edit-title">基本信息</div>
+                <div class="input-wrapper row-flexwrapper">
+                    <span><i>*</i>姓名</span>
+                    <input type="text" name="truename" value="">
+                </div>
+                
+                <div class="input-wrapper row-flexwrapper">
+                    <span><i>*</i>手机</span>
+                    <input type="text" name="mobile" value="">
+                </div>
+                <div class="input-wrapper row-flexwrapper">
+                    <span><i>*</i>验证码</span>
+                    <input type="text" name="code">
+                    <span class="btn"  id="smschk">发送验证码</span>
+                </div>
+                <div class="input-wrapper row-flexwrapper">
+                    <span><i></i>地址</span>
+                    <input type="text" name="address" value="">
+                </div>
+                <div class="yellow-board row-flexwrapper volunteer">
+                    <p>申请成为志愿者</p>
+                    <p class="row-flexwrapper">
+                        <span class="btn green">申请</span>
+                        <span class="btn">不申请</span>
+                    </p>
+                </div>
+                <div class="yellow-board row-flexwrapper partymember">
+                    <p>是否为党员</p>
+                    <p class="row-flexwrapper">
+                        <span class="btn green">是</span>
+                        <span class="btn">否</span>
+                    </p>
+                </div>
+                <input type="hidden" name="volunteer" value="">
+                <input type="hidden" name="partymember" value="">
+            </form>
+        </div>
+    </div>
+    <div class="edit-btn-submit btn" id="submit">注册</div>
+</div>
 
-<script src="http://skin.kankanews.com/v6/js/libs/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="https://skin.kankanews.com/v6/2016zt/hz/js/jquery.js"></script>
+<script type="text/javascript" src="//wlq.kankannews.com/wechat/scripts/public.js"></script>
 <script type="text/javascript">
+   function timeCountDown(btn, time, txt) {
+       if (time == 0) {
+           btn.html(txt);
+           btn.removeClass("gray");
+           return;
+       }
+       btn.html(time + "S");
+       setTimeout(function () {
+           timeCountDown(btn, --time, txt)
+       }, 1000)
+   }
     $("#smschk").on("click",function(){
-
+        if( $("input[name='mobile']").val()===""){
+            alert("请输入手机号");
+            return;
+        }
+        if($(this).hasClass("gray")){
+            return;
+        }
+        $(this).addClass("gray");
+        timeCountDown($("#smschk"), 10, "发送验证码")
         $.ajax({
             cache: true,
             type: "POST",
             url:   "/wechat/usercenter/smscheck",
-            data:  "mobile=" + document.getElementById("mobile").value,
+            data:  "mobile=" + $("input[name='mobile']").val(),
             async: false,
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-
             error: function(data) {
-                console.log(data);
+                alert(data.error_message);
             },
-
             success: function(data) {
-
-                console.log(data);
-                //var dataObj = JSON.parse(data);
-
-//                if(data.error_code != "0"){
-//                    $(".mask").show();
-//                    $(".mask").find("p").html(data.error_message);
-//                }else{
-//                    $(".first").hide();
-//                    $(".second").show();
-//                };
-
+                if(parseInt(data.error_code)===0){
+                    alert("修改成功");
+                }else{
+                    alert(data.error_message);
+                }
             }
         });
 
     });
 
     $("#submit").on("click",function(){
-
         $.ajax({
             cache: true,
             type: "POST",
@@ -65,24 +124,13 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-
             error: function(data) {
-                console.log(data);
+                alert(data.error_message);
             },
-
             success: function(data) {
-
-                console.log(data);
-                //var dataObj = JSON.parse(data);
-
-//                if(data.error_code != "0"){
-//                    $(".mask").show();
-//                    $(".mask").find("p").html(data.error_message);
-//                }else{
-//                    $(".first").hide();
-//                    $(".second").show();
-//                };
-
+                if(parseInt(data.error_code)===0){
+                    alert("修改成功");
+                };
             }
         });
 
