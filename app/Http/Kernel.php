@@ -60,7 +60,7 @@ class Kernel extends HttpKernel
 
         'wechat.oauth' => \Overtrue\LaravelWeChat\Middleware\OAuthAuthenticate::class,
 
-        'wuliqiao.cheatoauth' => \App\Http\Middleware\FakeWechatOauth::class,
+        //'wuliqiao.cheatoauth' => \App\Http\Middleware\FakeWechatOauth::class,
         'wuliqiao.register' => \App\Http\Middleware\WuliqiaoRegister::class,
 
     ];
