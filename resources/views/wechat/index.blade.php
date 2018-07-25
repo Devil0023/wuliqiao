@@ -18,15 +18,15 @@
             <div class="row-flexwrapper user-info"> 
                 <div class="row-flexwrapper">
                     <div class="protrait">
-                        <img src="{{$info["headimgurl"]}}"/>
+                        <img src="{{$uinfo["headimgurl"]}}"/>
                     </div>
-                    <p>{{$info["nickname"]}}</p>
+                    <p>{{$uinfo["nickname"]}}</p>
                 </div>
-                <div class="btn sign-in">签到</div>
+                <div class="btn sign-in {{$sign==1?"gray":""}}"> {{$sign==1?"已":""}}签到</div>
             </div>
             <ul class="item-list">
                 <li class="row-flexwrapper everyday more" data-url="/wechat/news">
-                    <span>每日任务</span><span>0/5</span>
+                    <span>每日任务</span><span>{{$mission["complete"]}}/{{$mission["daily"]}}</span>
                 </li>
                 <li class="row-flexwrapper myprofile more" data-url="/wechat/news">
                     <span>我的资料</span>
@@ -34,19 +34,19 @@
                 </li>
                 <li class="row-flexwrapper mypoint more" data-url="/wechat/usercenter/pointslog">
                     <span>我的积分</span>
-                    <span>{{$info["points"]}}<i>分</i></span>
+                    <span>{{$uinfo["points"]}}<i>分</i></span>
                 </li>
-                @if ($info["volunteer"])
+                @if ($uinfo["volunteer"])
                 <li class="row-flexwrapper volunteerpoint" data-url="
                 /wechat/usercenter/vpointslog">
                     <span>志愿者积分</span>
-                    <span>{{$info["volunteer_points"]}}<i>分</i></span>
+                    <span>{{$uinfo["volunteer_points"]}}<i>分</i></span>
                 </li>
                 @endif
-                @if ($info["partymember"])
+                @if ($uinfo["partymember"])
                 <li class="row-flexwrapper partypoint" data-url="/wechat/usercenter/ppointslog">
                     <span>党性积分</span>
-                    <span>{{$info["partymember_points"]}}<i>分</i></span>
+                    <span>{{$uinfo["partymember_points"]}}<i>分</i></span>
                 </li>
                 @endif
             </ul>

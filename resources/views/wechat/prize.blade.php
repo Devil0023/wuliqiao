@@ -30,7 +30,7 @@
             <div class="row-flexwrapper user-info no-border">   
                 <div class="row-flexwrapper">
                     <div class="protrait">
-                        <img src="aaa"/>
+                        <img src="{{$uinfo["headimgurl"]}}"/>
                     </div>
                     <p>{{@$uinfo["nickname"]}}<br/><span><em class="mallPoint">{{@$uinfo["points"]}}</em>分</span></p>
                 </div>

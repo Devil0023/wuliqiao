@@ -8,7 +8,6 @@
 	<link rel="stylesheet" type="text/css" href="//wlq.kankannews.com/wechat/styles/public.css">
 </head>
 <body>
-	{{json_encode($uinfo)}}
 	<div class="loadingMask">
 		<div class="loadWrapper text-center">
 			<p>loading...</p>

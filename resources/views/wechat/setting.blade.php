@@ -24,10 +24,10 @@
                 <p>{{@$uinfo["nickname"]}}</p>
             </div>
             <div class="row-flexwrapper user-tag">
-                @if($info["volunteer"])
+                @if($uinfo["volunteer"])
                     <p><i class="icon volunteer-icon"></i></br><span>志愿者</span></p>
                 @endif
-                @if($info["partymember"])
+                @if($uinfo["partymember"])
                     <p><i class="icon partymember-icon"></i></br><span>党员</span></p>
                 @endif
             </div>
@@ -37,12 +37,12 @@
                 <div class="edit-title">基本信息</div>
                 <div class="input-wrapper row-flexwrapper">
                     <span><i>*</i>姓名</span>
-                    <input type="text" name="truename" value="{{$info["truename"]}}">
+                    <input type="text" name="truename" value="{{$uinfo["truename"]}}">
                 </div>
                 
                 <div class="input-wrapper row-flexwrapper">
                     <span><i>*</i>手机</span>
-                    <input type="text" name="mobile" value="{{$info["mobile"]}}">
+                    <input type="text" name="mobile" value="{{$uinfo["mobile"]}}">
                 </div>
                 <div class="input-wrapper row-flexwrapper">
                     <span><i>*</i>验证码</span>
@@ -51,9 +51,9 @@
                 </div>
                 <div class="input-wrapper row-flexwrapper">
                     <span><i></i>地址</span>
-                    <input type="text" name="address" value="{{$info["address"]}}">
+                    <input type="text" name="address" value="{{$uinfo["address"]}}">
                 </div>
-                @if($info["volunteer"]==0)
+                @if($uinfo["volunteer"]==0)
                 <div class="yellow-board row-flexwrapper volunteer">
                     <p>申请成为志愿者</p>
                     <p class="row-flexwrapper">
@@ -62,7 +62,7 @@
                     </p>
                 </div>
                 @endif
-                @if($info["partymember"]==0)
+                @if($uinfo["partymember"]==0)
                 <div class="yellow-board row-flexwrapper partymember">
                     <p>是否为党员</p>
                     <p class="row-flexwrapper">
@@ -71,8 +71,8 @@
                     </p>
                 </div>
                 @endif
-                <input type="hidden" name="volunteer" value="{{$info["volunteer"]}}">
-                <input type="hidden" name="partymember" value="{{$info["partymember"]}}">
+                <input type="hidden" name="volunteer" value="{{$uinfo["volunteer"]}}">
+                <input type="hidden" name="partymember" value="{{$uinfo["partymember"]}}">
             </form>
         </div>
     </div>
