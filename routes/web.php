@@ -15,8 +15,8 @@ Route::get('/', function () {
     return "";
 });
 
-Route::group([
-    "domain"      => "www.wechatwjc.com",
+Route::domain("www.wechatwjc.com")->group([
+    
     "prefix"      => "wechat",
     'middleware' => ['web', 'wechat.oauth', 'wuliqiao.register'],
 
