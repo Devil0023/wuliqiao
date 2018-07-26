@@ -19,7 +19,7 @@ class WuliqiaoRegister
         $userinfo = session('wechat.oauth_user'); // 拿到授权用户资料
         $original = $userinfo["default"]->original;
 
-	print_r($original); die;
+	//print_r($original); die;
 
         $wxuser   = Wxuser::where("openid", "=", $original["openid"])->first();
 

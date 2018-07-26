@@ -19,8 +19,17 @@ Route::group([
 
     "prefix"      => "wechat",
     'middleware' => ['web', 'wechat.oauth:snsapi_userinfo', 'wuliqiao.register'],
+    
+    //'middleware' => ['web', 'wechat.oauth:snsapi_userinfo',],
 
     ], function () {
+
+	//test
+	//Route::get('/usertest', function () {
+	//	$user = session('wechat.oauth_user'); 
+	//	dd($user);
+	//});
+
         //主页用户中心
         Route::get('/', 'WuliqiaoController@index');
         Route::get('/index', 'WuliqiaoController@index');
