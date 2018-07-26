@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\WechatOauth;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -60,7 +61,7 @@ class Kernel extends HttpKernel
 
         'wechat.oauth' => \Overtrue\LaravelWeChat\Middleware\OAuthAuthenticate::class,
 
-        'wuliqiao.cheatoauth' => \App\Http\Middleware\FakeWechatOauth::class,
+        //'wuliqiao.cheatoauth' => \App\Http\Middleware\FakeWechatOauth::class,
         'wuliqiao.register' => \App\Http\Middleware\WuliqiaoRegister::class,
 
     ];

@@ -53,7 +53,7 @@ return [
     */
 
     //'url' => env('APP_URL', 'http://localhost/'),
-    'url' => env('APP_URL', 'http://www.wechatwjc.com'),
+    'url' => env('APP_URL', 'http://www.wechatwjc.com/'),
 
     /*
     |--------------------------------------------------------------------------
